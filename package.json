@@ -4,7 +4,27 @@
   "description": "React Hook for get window position of element",
   "scripts": {
     "build": "rimraf ./lib && tsc",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx './src'",
+    "lint:fix": "npm run lint --fix",
+    "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "format:fix": "prettier --write \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "lint-staged": "lint-staged",
+    "check-types": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": [
+      "npx eslint . --fix",
+      "npx prettier --write .",
+      "check-types"
+    ]
   },
   "author": "Kubota Hideya",
   "license": "MIT",
@@ -35,6 +55,8 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.31.0",

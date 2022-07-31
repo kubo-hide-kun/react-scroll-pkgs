@@ -37,7 +37,7 @@ jobs:
       # packege.jsonを元に必要なパッケージをインストール
       - name: Install Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       # Lintチェック
       - name: Run lint
@@ -67,11 +67,41 @@ jobs:
       # packege.jsonを元に必要なパッケージをインストール
       - name: Install Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       # Formatチェック
       - name: Run format check
         run: npm run format
+
+  format:
+    # ジョブ名を設定
+    name: Type check
+
+    # ビルドやデプロイを実行するイメージを指定
+    runs-on: ubuntu-latest
+
+    # ジョブに定義するステップ（タスク）を設定
+    steps:
+      # nodeをインストールする場合に指定するコマンド
+      - name: Installing node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+      # packege.jsonを元に必要なパッケージをインストール
+      - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      # Formatチェック
+      - name: Run format check
+        run: npm run check-types
 
   build:
     # ジョブ名を設定
@@ -98,7 +128,7 @@ jobs:
       # packege.jsonを元に必要なパッケージをインストール
       - name: Install Dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       # ビルド
       - name: Run build
