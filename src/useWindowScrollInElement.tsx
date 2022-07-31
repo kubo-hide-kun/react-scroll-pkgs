@@ -39,7 +39,6 @@ export const useWindowScrollInElement = (
   } = {}
 ) => {
   const options = useMemo(() => ({ ...DEFAULT_OPTIONS, ...opts }), [opts]);
-
   const currentTargetElm = useRefValue(targetElmRef);
 
   const [position, setPosition] = useState<{
