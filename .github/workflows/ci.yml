@@ -1,4 +1,4 @@
-name: Publish Package to npmjs
+name: CI
 
 # ワークフローをトリガーするイベントを設定
 on:
