@@ -9,7 +9,7 @@ type Options = {
   signal?: AbortSignal;
 };
 
-export const useWindowSize = (options : Options = {}) => {
+export const useWindowSize = (options: Options = {}) => {
   const [state, setState] = useState<{ width: number; height: number }>({
     width: typeof window !== "undefined" ? window.innerWidth : Infinity,
     height: typeof window !== "undefined" ? window.innerHeight : Infinity,
