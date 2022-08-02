@@ -21,9 +21,8 @@
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
-      "npx eslint . --fix",
-      "npx prettier --write .",
-      "check-types"
+      "eslint --ext .js,.jsx,.ts,.tsx './src'",
+      "prettier --check \"./src/**/*.{js,jsx,ts,tsx}\""
     ]
   },
   "author": "Kubota Hideya",
