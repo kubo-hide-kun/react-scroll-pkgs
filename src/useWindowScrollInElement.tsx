@@ -1,13 +1,21 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { mapValues } from "./utils/object";
-import { useRefValue } from "./hooks/useRefValue";
-import { useWindowScrollEffect } from "./hooks/useWindowScrollEffect";
-import { useWindowSize } from "./hooks/useWindowSize";
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-const DEFAULT_OPTIONS = {
+import { useRefValue } from './hooks/useRefValue';
+import { useWindowScrollEffect } from './hooks/useWindowScrollEffect';
+import { useWindowSize } from './hooks/useWindowSize';
+import { mapValues } from './utils/object';
+
+type Options = {
+  disableValueChangesOffscreen: boolean;
+  scrollStartPosition: 'window-top' | 'window-center' | 'window-bottom';
+  scrollEndPosition: 'window-top' | 'window-center' | 'window-bottom';
+  waitingMs?: number;
+};
+
+const DEFAULT_OPTIONS: Options = {
   disableValueChangesOffscreen: false,
-  scrollStartPosition: "window-top",
-  scrollEndPosition: "window-top",
+  scrollStartPosition: 'window-top',
+  scrollEndPosition: 'window-top',
 } as const;
 
 const FALLBACK_VALUES = {
@@ -17,26 +25,21 @@ const FALLBACK_VALUES = {
 };
 
 /**
- * 対象エレメントから見て window がどれくらいスクロールしたかを取得するHooks
- * @param targetElmRef 対象エレメント
+ * Hooks to get how much the window has scrolled from the target element.
+ * @param targetElmRef target element
  * @param opts
  * @returns result
- * @returns result.position window の「上辺/下辺」が対象エレメント内で 何px の位置にあるかを取得
- * @returns result.position.top 上辺
- * @returns result.position.bottom 下辺
- * @returns result.fraction 対象エレメントのスクロール可能領域の高さを100%として window の「上辺/下辺」が対象エレメント内で 何% の位置にあるかを取得
- * @returns result.fraction.top 上辺
- * @returns result.fraction.bottom 下辺
- * @returns result.isFraction window が対象エレメントのスクロール可能領域内にいるか？
+ * @returns result.position Get the position of the "top/bottom" of the window in px within the target element.
+ * @returns result.position.top
+ * @returns result.position.bottom
+ * @returns result.fraction Get the position of the "top/bottom" of the window as a percentage of the target element's scrollable area with the height of the target element as 100%.
+ * @returns result.fraction.top
+ * @returns result.fraction.bottom
+ * @returns result.isFraction window is within the scrollable area of the element * @returns result.isFraction window is within the scrollable area of the element?
  */
 export const useWindowScrollInElement = (
   targetElmRef: React.RefObject<HTMLElement>,
-  opts: {
-    disableValueChangesOffscreen?: boolean;
-    scrollStartPosition?: "window-top" | "window-center" | "window-bottom";
-    scrollEndPosition?: "window-top" | "window-center" | "window-bottom";
-    waitingMs?: number;
-  } = {}
+  opts: Partial<Options> = {}
 ) => {
   const options = useMemo(() => ({ ...DEFAULT_OPTIONS, ...opts }), [opts]);
   const currentTargetElm = useRefValue(targetElmRef);
@@ -58,14 +61,14 @@ export const useWindowScrollInElement = (
     }
 
     const positionTop =
-      options.scrollStartPosition === "window-top"
+      options.scrollStartPosition === 'window-top'
         ? targetElm.getBoundingClientRect().top * -1
-        : options.scrollStartPosition === "window-center"
+        : options.scrollStartPosition === 'window-center'
         ? windowHeight / 2 - targetElm.getBoundingClientRect().top
         : windowHeight - targetElm.getBoundingClientRect().top;
 
     setPosition({ top: positionTop, bottom: positionTop + windowHeight });
-  }, [targetElmRef, windowHeight]);
+  }, [targetElmRef, options, windowHeight]);
 
   useEffect(effect, [effect]);
   useWindowScrollEffect(effect, { waitingMs: options.waitingMs });
@@ -78,45 +81,45 @@ export const useWindowScrollInElement = (
     const { scrollStartPosition, scrollEndPosition } = options;
 
     switch (scrollStartPosition) {
-      case "window-top":
+      case 'window-top':
         switch (scrollEndPosition) {
-          case "window-top":
+          case 'window-top':
             return currentTargetElm.getBoundingClientRect().height;
-          case "window-center":
+          case 'window-center':
             return (
               currentTargetElm.getBoundingClientRect().height - windowHeight / 2
             );
-          case "window-bottom":
+          case 'window-bottom':
             return (
               currentTargetElm.getBoundingClientRect().height - windowHeight
             );
         }
       // eslint-disable-next-line no-fallthrough
-      case "window-center":
+      case 'window-center':
         switch (scrollEndPosition) {
-          case "window-top":
+          case 'window-top':
             return (
               currentTargetElm.getBoundingClientRect().height + windowHeight / 2
             );
-          case "window-center":
+          case 'window-center':
             return currentTargetElm.getBoundingClientRect().height;
-          case "window-bottom":
+          case 'window-bottom':
             return (
               currentTargetElm.getBoundingClientRect().height - windowHeight / 2
             );
         }
       // eslint-disable-next-line no-fallthrough
-      case "window-bottom":
+      case 'window-bottom':
         switch (scrollEndPosition) {
-          case "window-top":
+          case 'window-top':
             return (
               currentTargetElm.getBoundingClientRect().height + windowHeight
             );
-          case "window-center":
+          case 'window-center':
             return (
               currentTargetElm.getBoundingClientRect().height + windowHeight / 2
             );
-          case "window-bottom":
+          case 'window-bottom':
             return currentTargetElm.getBoundingClientRect().height;
         }
     }
@@ -125,7 +128,7 @@ export const useWindowScrollInElement = (
   const isInside = useMemo(
     () =>
       position.top !== null &&
-      0 < position.top + 1 &&
+      position.top + 1 > 0 &&
       position.top - 1 < scrollableHeight,
     [position.top, scrollableHeight]
   );

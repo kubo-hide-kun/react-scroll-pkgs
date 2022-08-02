@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import { throttle } from "../utils/throttle";
+import { useEffect, useMemo, useState } from 'react';
+
+import { throttle } from '../utils/throttle';
 
 type Options = {
   waitingMs?: number;
@@ -11,8 +12,8 @@ type Options = {
 
 export const useWindowSize = (options: Options = {}) => {
   const [state, setState] = useState<{ width: number; height: number }>({
-    width: typeof window !== "undefined" ? window.innerWidth : Infinity,
-    height: typeof window !== "undefined" ? window.innerHeight : Infinity,
+    width: typeof window !== 'undefined' ? window.innerWidth : Infinity,
+    height: typeof window !== 'undefined' ? window.innerHeight : Infinity,
   });
 
   const resizeEffect = useMemo(() => {
@@ -25,9 +26,9 @@ export const useWindowSize = (options: Options = {}) => {
   }, [options.waitingMs]);
 
   useEffect(() => {
-    window.addEventListener("scroll", resizeEffect, options);
+    window.addEventListener('scroll', resizeEffect, options);
     return () => {
-      window.removeEventListener("scroll", resizeEffect);
+      window.removeEventListener('scroll', resizeEffect);
     };
   }, [options, resizeEffect]);
 

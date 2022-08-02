@@ -1,5 +1,6 @@
-import { useEffect, useRef, useMemo } from "react";
-import { throttle } from "../utils/throttle";
+import { useEffect, useMemo } from 'react';
+
+import { throttle } from '../utils/throttle';
 
 type Options = {
   waitingMs?: number;
@@ -10,9 +11,9 @@ type Options = {
 };
 
 /**
- * スクロールイベントが発生するたびにコールバック関数を呼び出すカスタムHook
- * @param effect コールバック関数
- * @param options.waitingMs 関数実行後の待機時間
+ * Custom Hook that calls a callback function each time a scroll event occurs
+ * @param effect callback function
+ * @param options.waitingMs Waiting time after function execution
  * @see https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#parameters
  */
 export const useWindowScrollEffect = (
@@ -26,9 +27,9 @@ export const useWindowScrollEffect = (
   }, [effect, options.waitingMs]);
 
   useEffect(() => {
-    window.addEventListener("scroll", scrollEffect, options);
+    window.addEventListener('scroll', scrollEffect, options);
     return () => {
-      window.removeEventListener("scroll", scrollEffect);
+      window.removeEventListener('scroll', scrollEffect);
     };
   }, [options, scrollEffect]);
 };

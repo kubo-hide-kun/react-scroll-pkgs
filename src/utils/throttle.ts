@@ -1,7 +1,7 @@
-export const throttle = (fn: Function, interval: number) => {
+export const throttle = (fn: VoidFunction, interval: number): VoidFunction => {
   let lastInvokeTime = Date.now();
 
-  const invokeFn = (fn: Function) => {
+  const invokeFn = (fn: VoidFunction): void => {
     const time = Date.now();
     const timeSinceLastInvoke = time - lastInvokeTime;
 
@@ -10,8 +10,8 @@ export const throttle = (fn: Function, interval: number) => {
       return;
     }
 
-    fn();
     lastInvokeTime = time;
+    return fn();
   };
 
   return () => invokeFn(fn);
