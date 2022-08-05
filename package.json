@@ -1,14 +1,15 @@
 {
   "name": "use-window-scroll-in-element",
-  "version": "0.0.2",
-  "description": "React Hook for get window position of element",
+  "version": "0.0.1",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "rimraf ./lib && tsc",
-    "prepublishOnly": "npm run build",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx './src'",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx './packages' --ignore-path .gitignore",
     "lint:fix": "npm run lint --fix",
-    "format": "prettier --check \"./src/**/*.{js,jsx,ts,tsx}\"",
-    "format:fix": "prettier --write \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --check \"./packages/**/*.{js,jsx,ts,tsx}\"",
+    "format:fix": "prettier --write \"./packages/**/*.{js,jsx,ts,tsx}\"",
     "lint-staged": "lint-staged",
     "check-types": "tsc --noEmit",
     "prepare": "husky install"
@@ -21,65 +22,29 @@
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
-      "eslint --ext .js,.jsx,.ts,.tsx './src'",
-      "prettier --check \"./src/**/*.{js,jsx,ts,tsx}\""
+      "eslint --ext .js,.jsx,.ts,.tsx './packages' --ignore-path .gitignore",
+      "prettier --check \"./packages/**/*.{js,jsx,ts,tsx}\""
     ]
-  },
-  "author": "Kubota Hideya",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kubo-hide-kun/use-window-scroll-in-element/issues"
-  },
-  "homepage": "https://github.com/kubo-hide-kun/use-window-scroll-in-element#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/kubo-hide-kun/use-window-scroll-in-element.git"
-  },
-  "keywords": [
-    "react",
-    "typescript",
-    "hooks",
-    "window",
-    "scroll"
-  ],
-  "main": "lib/index.js",
-  "types": "lib/typescript/index.d.ts",
-  "files": [
-    "/src",
-    "/lib",
-    "/README.md",
-    "/LICENSE"
-  ],
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^28.1.3",
     "eslint": "^8.20.0",
-    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-config-standard": "^17.0.0",
     "husky": "^8.0.1",
-    "jest": "^28.1.3",
-    "jest-dom": "^4.0.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
     "typescript": "^4.7.4"
-  },
-  "dependencies": {
-    "eslint-config-standard": "^17.0.0"
   }
 }

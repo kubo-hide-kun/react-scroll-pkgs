@@ -1,6 +1,5 @@
+import throttle from 'just-throttle';
 import { useEffect, useMemo, useState } from 'react';
-
-import { throttle } from '../utils/throttle';
 
 type Options = {
   waitingMs?: number;

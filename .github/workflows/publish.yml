@@ -2,10 +2,6 @@ name: Publish Package to npmjs
 
 # ワークフローをトリガーするイベントを設定
 on:
-  # mainブランチに pushされた場合 と pull requestされた場合に に実行
-  push:
-    branches: [main]
-
   # ワークフローを任意に手動で起動することを許可します
   workflow_dispatch:
 
