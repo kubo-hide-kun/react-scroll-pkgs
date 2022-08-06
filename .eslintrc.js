@@ -20,7 +20,7 @@ module.exports = {
   rules: {},
   overrides: [
     {
-      files: ['packages/**/*.ts?(x)'],
+      files: ['packages/**/*.ts?(x)', 'website/**/*.ts?(x)'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         ecmaFeatures: {
@@ -31,7 +31,7 @@ module.exports = {
         project: './tsconfig.json',
       },
       extends: [
-        'standard',
+        'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:react/recommended',

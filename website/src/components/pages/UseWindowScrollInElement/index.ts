@@ -1,0 +1,1 @@
+export { UseWindowScrollInElement } from './UseWindowScrollInElement';

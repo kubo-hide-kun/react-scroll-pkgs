@@ -1,1 +1,1 @@
-export { ScrollFlipBook } from './components/ScrollFlipBook';
+export { ScrollFlipBook } from './ScrollFlipBook';

@@ -1,0 +1,29 @@
+{
+  "name": "website",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build && next export",
+    "convert2avif": "squoosh-cli -d ./public/assets/images/topics --avif '{'cqLevel':38,'cqAlphaLevel':-1,'subsample':1,'tileColsLog2':0,'tileRowsLog2':0,'speed':6,'chromaDeltaQ':false,'sharpness':0,'denoiseLevel':0,'tune':0}'",
+    "convert2webp": "squoosh-cli -d ./public/assets/images/topics --webp '{'quality':65,'target_size':0,'target_PSNR':0,'method':4,'sns_strength':50,'filter_strength':60,'filter_sharpness':0,'filter_type':1,'partitions':0,'segments':4,'pass':1,'show_compressed':0,'preprocessing':0,'autofilter':0,'partition_limit':0,'alpha_compression':1,'alpha_filtering':1,'alpha_quality':100,'lossless':0,'exact':0,'image_hint':0,'emulate_jpeg_size':0,'thread_level':0,'low_memory':0,'near_lossless':100,'use_delta_palette':0,'use_sharp_yuv':0}'"
+  },
+  "dependencies": {
+    "next": "12.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "styled-components": "^5.3.3",
+    "use-window-scroll-in-element": "^0.0.1"
+  },
+  "devDependencies": {
+    "@squoosh/cli": "^0.7.2",
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.40",
+    "@types/react-transition-group": "^4.4.5",
+    "@types/styled-components": "^5.1.24",
+    "babel-plugin-styled-components": "^2.0.7",
+    "typescript": "4.6.2"
+  }
+}

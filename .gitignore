@@ -3,9 +3,11 @@
 .vscode
 .vagrant
 
-/node_modules
+node_modules
+**/node_modules
 npm-debug.log
 yarn-error.log
 
 # Build
 packages/**/lib
+website/.next
