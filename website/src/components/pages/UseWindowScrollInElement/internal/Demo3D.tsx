@@ -23,6 +23,13 @@ const _Container = styled.div`
   perspective: 500px;
 `;
 
+const _Description = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 16px 32px;
+`;
+
 const _ContentsAnimation = keyframes`
   0% {
     transform: rotateY(30deg);
@@ -79,7 +86,7 @@ const _ShadowCard = styled.div`
 
 export const Demo3D = () => {
   const areaRef = useRef<HTMLDivElement>(null);
-  const { fraction } = useWindowScrollInElement(areaRef, {
+  const { position, fraction } = useWindowScrollInElement(areaRef, {
     scrollStartPosition: 'window-top',
     scrollEndPosition: 'window-top',
   });
@@ -87,6 +94,22 @@ export const Demo3D = () => {
   return (
     <_ScrollingArea ref={areaRef}>
       <_Container>
+        <_Description>
+          <p>
+            window の「上辺/下辺」が対象エレメント内で 何px の位置にあるかを取得
+          </p>
+          <p>
+            上辺: {position.top}px, 下辺: {position.bottom}px
+          </p>
+          <p>
+            対象エレメントのスクロール可能領域の高さを100%として <br />
+            window の「上辺/下辺」が対象エレメント内で 何% の位置にあるかを取得
+          </p>
+          <p>
+            上辺: {parseFloat((fraction.top * 100).toFixed(1))}%, 下辺:{' '}
+            {parseFloat((fraction.bottom * 100).toFixed(1))}%
+          </p>
+        </_Description>
         <_Contents>
           <_Front>
             <_WindowCard
