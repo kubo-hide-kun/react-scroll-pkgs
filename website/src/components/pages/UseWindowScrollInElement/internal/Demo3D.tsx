@@ -88,7 +88,7 @@ export const Demo3D = () => {
   const areaRef = useRef<HTMLDivElement>(null);
   const { position, fraction } = useWindowScrollInElement(areaRef, {
     scrollStartPosition: 'window-top',
-    scrollEndPosition: 'window-top',
+    scrollEndPosition: 'window-bottom',
   });
 
   return (
