@@ -68,7 +68,7 @@ export const useWindowScrollInElement = (
         : windowHeight - targetElm.getBoundingClientRect().top;
 
     setPosition({ top: positionTop, bottom: positionTop + windowHeight });
-  }, [targetElmRef, options, windowHeight]);
+  }, [options.scrollStartPosition, targetElmRef, windowHeight]);
 
   useEffect(effect, [effect]);
   useWindowScrollEffect(effect, { waitingMs: options.waitingMs });
