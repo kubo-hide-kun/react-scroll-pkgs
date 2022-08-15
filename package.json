@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "website": "npm run dev -w website",
+    "fix:all": "run-s lint:fix format:fix check-types",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx './packages' --ignore-path .gitignore",
     "lint:fix": "npm run lint --fix",
     "format": "run-s format:packages format:website",
