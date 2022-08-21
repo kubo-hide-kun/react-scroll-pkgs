@@ -12,17 +12,17 @@ import { useWindowScrollInElement } from 'use-window-scroll-in-element';
 import { useImageLoader } from './hooks/useImageLoader';
 import { useWindowInitialSize } from './hooks/useWindowInitialSize';
 import { useWindowResizeEffect } from './hooks/useWindowResizeEffect';
-import { TargetEncode } from './types/encode';
+import { Encode } from './types/encode';
 import { calcCanvasScale, calcCoverRect } from './utils/canvas';
 
-type Props = {
+export type Props = {
   defaultSource: {
-    framePaths: { [encodeType in TargetEncode]?: string }[];
+    framePaths: { [encodeType in Encode]?: string }[];
     shouldBackGroundLoading?: boolean;
   };
-  sources: {
+  sources?: {
     breakPoint: number;
-    framePaths: { [encodeType in TargetEncode]?: string }[];
+    framePaths: { [encodeType in Encode]?: string }[];
     shouldBackGroundLoading?: boolean;
   }[];
   pause?: boolean;
@@ -62,7 +62,7 @@ export const ScrollFlipBook = forwardRef<HTMLDivElement, Props>(
   function ScrollFlipBook(
     {
       defaultSource,
-      sources,
+      sources = [],
       pause = false,
       preLoadingSize,
       canvasSize = { width: 1920, height: 1920 },
@@ -102,13 +102,14 @@ export const ScrollFlipBook = forwardRef<HTMLDivElement, Props>(
       );
     }, [initialWidth]);
 
-    const minBreakPoint = useMemo(
-      () =>
-        sources
-          .map((source) => source.breakPoint)
-          .reduce((a, b) => Math.max(a, b)),
-      [sources]
-    );
+    const minBreakPoint = useMemo(() => {
+      if (sources.length === 0) {
+        return 0;
+      }
+      return sources
+        .map((source) => source.breakPoint)
+        .reduce((a, b) => Math.max(a, b));
+    }, [sources]);
 
     // 画像の事前読み込み（大量に発火させるとパフォーマンスに影響が出るので debounce を利用）
     const preLoadImage = useMemo(
@@ -117,7 +118,7 @@ export const ScrollFlipBook = forwardRef<HTMLDivElement, Props>(
           (
             start: number,
             targetFramePaths: {
-              [encodeType in 'jpeg' | 'avif' | 'webp']?: string;
+              [encodeType in Encode]?: string;
             }[]
           ) => {
             const end = preLoadingSize

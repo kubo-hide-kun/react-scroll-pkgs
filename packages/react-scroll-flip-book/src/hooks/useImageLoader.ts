@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { TargetEncode } from '../types/encode';
+import { Encode } from '../types/encode';
 import { loadImage as utilsLoadImage } from '../utils/loadImage';
 import { getSupportedEncodes } from '../utils/supportsEncode';
 
 // 軽量化用のHooks
 export const useImageLoader = () => {
   const loadedImagesRef = useRef<{ [url: string]: HTMLImageElement }>({});
-  const supportedEncodesRef = useRef<TargetEncode[] | null>(null);
+  const supportedEncodesRef = useRef<Encode[] | null>(null);
 
   useEffect(() => {
     const fn = async () => {
@@ -18,11 +18,11 @@ export const useImageLoader = () => {
   });
 
   const loadImage = useCallback(
-    async (urls: { [encodeType in TargetEncode]?: string }) => {
+    async (urls: { [encodeType in Encode]?: string }) => {
       const supportedEncodes =
         supportedEncodesRef.current || (await getSupportedEncodes());
       const targetType =
-        supportedEncodes.find((encodeType) => urls[encodeType]) || 'jpeg';
+        supportedEncodes.find((encodeType) => urls[encodeType]) || 'jpg';
       const url = urls[targetType];
       if (!url) {
         return;
@@ -43,11 +43,11 @@ export const useImageLoader = () => {
   );
 
   const preloadImage = useCallback(
-    async (urls: { [encodeType in TargetEncode]?: string }) => {
+    async (urls: { [encodeType in Encode]?: string }) => {
       const supportedEncodes =
         supportedEncodesRef.current || (await getSupportedEncodes());
       const targetType =
-        supportedEncodes.find((encodeType) => urls[encodeType]) || 'jpeg';
+        supportedEncodes.find((encodeType) => urls[encodeType]) || 'jpg';
       const url = urls[targetType];
       if (!url) {
         return;

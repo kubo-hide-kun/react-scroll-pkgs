@@ -1,10 +1,10 @@
-import { TargetEncode } from '../types/encode';
+import { Encode } from '../types/encode';
 
 /**
  * @see https://avif.io/blog/tutorials/css/
  */
 
-function checkAvifSupport(): Promise<boolean> {
+const checkAvifSupport = (): Promise<boolean> => {
   return new Promise((resolve) => {
     const avif = new Image();
     avif.src =
@@ -16,9 +16,9 @@ function checkAvifSupport(): Promise<boolean> {
       resolve(false);
     };
   });
-}
+};
 
-function checkWebPSupport(): Promise<boolean> {
+const checkWebPSupport = (): Promise<boolean> => {
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = function () {
@@ -31,12 +31,13 @@ function checkWebPSupport(): Promise<boolean> {
     img.src =
       'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
   });
-}
+};
 
-export const getSupportedEncodes = async (): Promise<TargetEncode[]> => {
+export const getSupportedEncodes = async (): Promise<Encode[]> => {
   return [
     ...((await checkAvifSupport()) ? (['avif'] as const) : []),
     ...((await checkWebPSupport()) ? (['webp'] as const) : []),
-    'jpeg',
+    'jpg',
+    'png',
   ];
 };
