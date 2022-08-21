@@ -1,7 +1,7 @@
 # USAGE: ルートディレクトリで実行すること
 
-rm ./website/public/assets/first_view_pc/＊
-ffmpeg -i movie.mp4 -r 8 -q:v 1 ./website/public/assets/first_view_pc/%03d.jpg
+# rm ./website/public/assets/first_view_pc/＊
+# ffmpeg -i movie.mp4 -r 8 -q:v 1 ./website/public/assets/first_view_pc/%03d.jpg
 
 target_dir="./public/assets/first_view_pc"
 

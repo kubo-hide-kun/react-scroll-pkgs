@@ -1,6 +1,9 @@
+import NextHead from 'next/head';
 import React from 'react';
+import { ScrollFlipBookProps } from 'react-scroll-flip-book';
 import styled from 'styled-components';
 
+import { FirsView } from './internal/FirstView';
 import { WhiteSpace } from './internal/WhiteSpace';
 
 const _Container = styled.div`
@@ -8,16 +11,29 @@ const _Container = styled.div`
   background: red;
 `;
 
-const _FirstView = styled.div`
-  width: 100%;
-  height: 200vh;
-`;
+export type Props = {
+  framePaths: ScrollFlipBookProps['defaultSource']['framePaths'];
+};
 
-export const Top = () => {
+export const Top = ({ framePaths }: Props) => {
   return (
-    <_Container>
-      <_FirstView>Hello World</_FirstView>
-      <WhiteSpace />
-    </_Container>
+    <>
+      <NextHead>
+        {framePaths.slice(0, 20).map((framePath) => (
+          <React.Fragment key={framePath.jpg}>
+            <link
+              rel="preload"
+              href={framePath.avif}
+              as="image"
+              type="image/avif"
+            />
+          </React.Fragment>
+        ))}
+      </NextHead>
+      <_Container>
+        <FirsView framePaths={framePaths} />
+        <WhiteSpace />
+      </_Container>
+    </>
   );
 };
