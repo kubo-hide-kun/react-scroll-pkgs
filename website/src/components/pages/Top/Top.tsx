@@ -4,6 +4,7 @@ import { ScrollFlipBookProps } from 'react-scroll-flip-book';
 import styled from 'styled-components';
 
 import { FirsView } from './internal/FirstView';
+import { WelcomeCard } from './internal/WelcomeCard';
 import { WhiteSpace } from './internal/WhiteSpace';
 
 const _Container = styled.div`
@@ -32,6 +33,7 @@ export const Top = ({ framePaths }: Props) => {
       </NextHead>
       <_Container>
         <FirsView framePaths={framePaths} />
+        <WelcomeCard />
         <WhiteSpace />
       </_Container>
     </>
