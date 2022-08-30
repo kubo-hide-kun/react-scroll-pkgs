@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useWindowScrollInElement } from 'use-window-scroll-in-element';
 
@@ -49,20 +49,22 @@ export const WelcomeCard = () => {
   const { width, height } = useWindowSize();
   const windowAspectRatio = width / height;
 
-  const { minSize, maxSize } = useMemo(() => {
-    const _minSize =
+  const [sizes, setSizes] = useState({ min: 0, max: 0 });
+
+  useEffect(() => {
+    const minSize =
       SQUARE_SIZE_BASE +
       clamp(fraction.top - EXPAND_POSITION, 0, 1) *
         ((1 - SQUARE_SIZE_BASE) / (1 - EXPAND_POSITION));
 
     const squareSize = SQUARE_SIZE_BASE / windowAspectRatio;
-    const _maxSize =
+    const maxSize =
       squareSize +
       (clamp(fraction.top - EXPAND_POSITION, 0, 1) * (1 - squareSize)) /
         (1 - EXPAND_POSITION);
 
-    return { minSize: _minSize, maxSize: _maxSize };
-  }, [fraction.top, windowAspectRatio]);
+    setSizes({ min: minSize, max: maxSize });
+  }, [width, height, fraction.top, windowAspectRatio]);
 
   return (
     <_ScrollingArea ref={areaRef}>
@@ -70,8 +72,8 @@ export const WelcomeCard = () => {
         <_Box
           style={{
             borderRadius: `${16}px`,
-            width: `${(windowAspectRatio < 1 ? minSize : maxSize) * 100}%`,
-            height: `${(windowAspectRatio < 1 ? maxSize : minSize) * 100}%`,
+            width: `${(windowAspectRatio < 1 ? sizes.min : sizes.max) * 100}%`,
+            height: `${(windowAspectRatio < 1 ? sizes.max : sizes.min) * 100}%`,
           }}
         >
           TEST
