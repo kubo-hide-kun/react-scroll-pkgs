@@ -45,6 +45,6 @@
   "dependencies": {
     "@seznam/compose-react-refs": "^1.0.6",
     "just-throttle": "^4.0.1",
-    "use-window-scroll-in-element": "^0.0.2"
+    "use-window-scroll-in-element": "^0.1.0"
   }
 }
