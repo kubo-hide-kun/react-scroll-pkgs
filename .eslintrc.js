@@ -20,7 +20,7 @@ module.exports = {
   rules: {},
   overrides: [
     {
-      files: ['packages/**/*.ts?(x)', 'website/**/*.ts?(x)'],
+      files: ['packages/**/*.ts?(x)', 'apps/website/**/*.ts?(x)'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         ecmaFeatures: {

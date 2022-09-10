@@ -4,7 +4,7 @@
   "main": "index.js",
   "workspaces": [
     "packages/*",
-    "website"
+    "apps/*"
   ],
   "scripts": {
     "website": "npm run dev -w website",
@@ -13,10 +13,10 @@
     "lint:fix": "npm run lint --fix",
     "format": "run-s format:packages format:website",
     "format:packages": "prettier --check \"./packages/**/*.{js,jsx,ts,tsx}\"",
-    "format:website": "prettier --check \"./website/**/*.{js,jsx,ts,tsx}\"",
+    "format:website": "prettier --check \"./apps/website/**/*.{js,jsx,ts,tsx}\"",
     "format:fix": "run-s format:fix:packages format:fix:website",
     "format:fix:packages": "prettier --write \"./packages/**/*.{js,jsx,ts,tsx}\"",
-    "format:fix:website": "prettier --write \"./website/**/*.{js,jsx,ts,tsx}\"",
+    "format:fix:website": "prettier --write \"./apps/website/**/*.{js,jsx,ts,tsx}\"",
     "lint-staged": "lint-staged",
     "check-types": "tsc --noEmit",
     "prepare": "husky install"
@@ -31,7 +31,7 @@
     "**/*.{js,ts,jsx,tsx}": [
       "eslint --ext .js,.jsx,.ts,.tsx './packages' --ignore-path .gitignore",
       "prettier --check \"./packages/**/*.{js,jsx,ts,tsx}\"",
-      "prettier --check \"./website/**/*.{js,jsx,ts,tsx}\""
+      "prettier --check \"./apps/website/**/*.{js,jsx,ts,tsx}\""
     ]
   },
   "devDependencies": {
