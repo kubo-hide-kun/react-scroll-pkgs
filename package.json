@@ -19,7 +19,7 @@
     "format:fix:website": "prettier --write \"./apps/website/**/*.{js,jsx,ts,tsx}\"",
     "lint-staged": "lint-staged",
     "check-types": "tsc --noEmit",
-    "prepare": "husky install"
+    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\""
   },
   "husky": {
     "hooks": {
