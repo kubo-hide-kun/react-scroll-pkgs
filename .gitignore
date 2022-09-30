@@ -10,4 +10,5 @@ yarn-error.log
 
 # Build
 packages/**/lib
+apps/website/out
 apps/website/.next
