@@ -66,6 +66,12 @@ const _Description = styled.p`
     0 0 80px rgba(0, 0, 255, 0.25);
 `;
 
+const _ScriptWrapper = styled.div`
+  > :not(:last-child) {
+    margin-bottom: 18px;
+  }
+`;
+
 type Props = {
   framePaths: ScrollFlipBookProps['defaultSource']['framePaths'];
 };
@@ -93,7 +99,10 @@ export const FirsView = ({ framePaths }: Props) => {
           <_Description>
             Provides scroll-linked React UI libraries .
           </_Description>
-          <ScriptBox script="npm i react-scroll-flip-book" />
+          <_ScriptWrapper>
+            <ScriptBox script="npm i react-scroll-flip-book" />
+            <ScriptBox script="npm i use-window-scroll-in-element" />
+          </_ScriptWrapper>
         </_Content>
       </_ContentWrapper>
     </_Wrapper>
