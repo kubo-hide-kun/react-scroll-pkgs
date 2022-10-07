@@ -1,5 +1,6 @@
 import Prism from 'prismjs';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { IoCopyOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 
 import 'prismjs/components/prism-typescript';
@@ -30,14 +31,20 @@ const _Pre = styled.pre`
   width: 100%;
 `;
 
-const _WindowActions = styled.span`
+const _Header = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 0 0 12px;
   z-index: 2;
   position: sticky;
   top: 0px;
+`;
+
+const _WindowActions = styled.span`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
   > :not(:last-child) {
     margin-right: 8px;
@@ -51,42 +58,49 @@ const _WindowAction = styled.span<{ background: string }>`
   background-color: ${({ background }) => background};
 `;
 
+const _IconWrapper = styled.div`
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  > :hover {
+    opacity: #fff;
+  }
+`;
+
 const _CodeWrapper = styled.pre`
   width: calc(100% - 40px);
   overflow: scroll;
 `;
 
-export const CodeBlock = () => {
-  // Init
+type Props = {
+  script: string;
+};
+
+export const CodeBlock = ({ script }: Props) => {
   useEffect(() => {
     Prism.highlightAll();
   }, []);
+
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(script);
+  }, [script]);
 
   // Usage
   return (
     <_Container>
       <_Pre>
-        <_WindowActions>
-          <_WindowAction background="#F31260" />
-          <_WindowAction background="#F5A524" />
-          <_WindowAction background="#17C964" />
-        </_WindowActions>
+        <_Header>
+          <_WindowActions>
+            <_WindowAction background="#F31260" />
+            <_WindowAction background="#F5A524" />
+            <_WindowAction background="#17C964" />
+          </_WindowActions>
+          <_IconWrapper onClick={copy}>
+            <IoCopyOutline />
+          </_IconWrapper>
+        </_Header>
         <_CodeWrapper>
-          <code className="language-typescript">
-            {`// Language: typescript
-// Path: apps/website/src/components/pages/Top/internal/CodeBlock.tsx
-// Compare this snippet from apps/website/src/pages/_document.tsx:
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-  DocumentInitialProps,
-} from 'next/document';
-import styled from 'styled-components';
-`}
-          </code>
+          <code className="language-typescript">{script}</code>
         </_CodeWrapper>
       </_Pre>
     </_Container>

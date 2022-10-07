@@ -13,6 +13,20 @@ const _Container = styled.div`
   background: red;
 `;
 
+const EXAMPLE_SCRIPT = `// Language: typescript
+// Path: apps/website/src/components/pages/Top/internal/CodeBlock.tsx
+// Compare this snippet from apps/website/src/pages/_document.tsx:
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from 'next/document';
+import styled from 'styled-components';
+`;
+
 export type Props = {
   framePaths: ScrollFlipBookProps['defaultSource']['framePaths'];
 };
@@ -36,7 +50,7 @@ export const Top = ({ framePaths }: Props) => {
         <FirsView framePaths={framePaths} />
         <WelcomeCard />
         <WhiteSpace>
-          <CodeBlock />
+          <CodeBlock script={EXAMPLE_SCRIPT} />
         </WhiteSpace>
       </_Container>
     </>
