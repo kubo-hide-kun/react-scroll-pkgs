@@ -9,20 +9,22 @@
     "window",
     "scroll"
   ],
+  "source": "src/index.ts",
   "main": "lib/index.js",
   "types": "lib/typescript/index.d.ts",
   "files": [
-    "/src",
     "/lib",
-    "/README.md",
     "/LICENSE"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf ./lib && tsc",
-    "prepublishOnly": "npm run build"
+    "build": "rimraf ./lib && tsc --project tsconfig.build.json",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,ts,jsx,tsx}\" --fix",
+    "typecheck": "tsc --noEmit"
   },
   "author": "Kubota Hideya",
   "license": "MIT",
@@ -38,9 +40,12 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.15",
+    "@types/node": "^18.11.2",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "rimraf": "^3.0.2"
+    "@vitejs/plugin-react": "^2.1.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
     "@seznam/compose-react-refs": "^1.0.6",

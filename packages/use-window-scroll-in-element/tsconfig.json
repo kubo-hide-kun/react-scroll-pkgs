@@ -1,16 +1,7 @@
 {
+  "extends": "../tsconfig/configs/library-react.json",
   "include": ["src/**/*"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
-    "jsx": "react-jsx",
-    "declaration": true,
-    "declarationDir": "./lib/typescript",
-    "outDir": "./lib",
-    "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "baseUrl": ".",
+  },
 }

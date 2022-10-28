@@ -1,0 +1,21 @@
+{
+  "name": "eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "peerDependencies": {
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}

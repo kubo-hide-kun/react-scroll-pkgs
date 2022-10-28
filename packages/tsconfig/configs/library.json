@@ -1,0 +1,11 @@
+{
+  "extends": "./common.json",
+  "display": "TS Library",
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    "target": "es5",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowJs": false
+  }
+}

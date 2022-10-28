@@ -7,6 +7,7 @@
 </p>
 
 ## Instrallation
+
 You can install the package from npm.
 
 ```
@@ -20,4 +21,5 @@ $ yarn add use-window-scroll-in-element
 ```
 
 ## License
+
 [MIT © kubo-hide-kun](./LICENSE)

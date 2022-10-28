@@ -1,0 +1,25 @@
+name: Publish Package to npmjs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: 
+      name: production
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Publish "react-scroll-flip-book"
+        run: npm publish -w react-scroll-flip-book
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

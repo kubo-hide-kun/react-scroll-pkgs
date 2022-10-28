@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Demo3D } from './internal/Demo3D';
+import { Demo3D } from '../Top/internal/Demo3D';
 
 export const UseWindowScrollInElement = () => {
   return (

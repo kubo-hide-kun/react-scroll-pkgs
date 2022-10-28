@@ -1,0 +1,7 @@
+{
+  "extends": "./library.json",
+  "display": "React Library",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}
