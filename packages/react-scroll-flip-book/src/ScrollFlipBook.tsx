@@ -42,21 +42,21 @@ export type Props = {
 >;
 
 /**
- * @param defaultSource
- * @param defaultSource.framePaths 表示するアニメーションのフレームの配列
- * @param defaultSource.shouldBackGroundLoading 他のsourceが表示されている場合もバックグラウンドで画像をロードするか？
- * @param sources
- * @param sources[n].breakPoint 適用したい最小の画面サイズ
- * @param sources[n].framePaths 表示するアニメーションのフレームの配列
- * @param sources[n].shouldBackGroundLoading 他のsourceが表示されている場合もバックグラウンドで画像をロードするか？
- * @param pause アニメーションを一時停止させるためのフラグ
- * @param preLoadingSize 何フレーム先まで事前に読み込むか（未指定の場合は全フレームを一括で取得）
- * @param canvasSize キャンバスサイズ（描画バッファサイズ）
- * @param background 背景色・背景画像
- * @param animationStartPosition このコンポーネント上辺がどの位置に達した時点でアニメーションを開始させるかを指定します。
- * @param animationStartPosition このコンポーネント下辺がどの位置に達した時点でアニメーションを終了させるかを指定します。
- * @param shouldChangeSourceOnResize 'true' なら画面サイズ変更度にそのサイズに合った source に変更する。'false' の場合はサイトアクセス時の source から変更しない。
- * @param shouldBackGroundLoadingOnPause 一時停止中にバックグラウンドで画像をロードするか？
+ * @param defaultSource.
+ * @param defaultSource.framePaths Array of animation frames to display
+ * @param defaultSource.shouldBackGroundLoading Should the image be loaded in the background when other sources are displayed?
+ * @param sources.
+ * @param sources[n].breakPoint Minimum screen size to apply
+ * @param sources[n].framePaths Array of animation frames to display
+ * @param sources[n].shouldBackGroundLoading Should the image be loaded in the background when other sources are displayed?
+ * @param pause Flag to pause the animation
+ * @param preLoadingSize How many frames to load in advance (if not specified, all frames are acquired at once)
+ * @param canvasSize canvas size (drawing buffer size)
+ * @param background Background color/image
+ * @param animationStartPosition Specify at which position the animation will start when the upper edge of this component reaches.
+ * @param animationStartPosition Specifies at which position the animation should end when the bottom edge of this component reaches.
+ * @param shouldChangeSourceOnResize If 'true', change the source to match the size of the screen every time it is resized. If 'false', do not change from the source at the time of site access.
+ * @param shouldBackGroundLoadingOnPause Should images be loaded in the background while paused?
  */
 export const ScrollFlipBook = forwardRef<HTMLDivElement, Props>(
   function ScrollFlipBook(
