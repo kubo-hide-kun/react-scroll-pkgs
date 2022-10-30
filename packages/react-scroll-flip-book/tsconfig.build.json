@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./lib/typescript",
+    "module": "commonjs",
     "outDir": "./lib",
   },
 }

@@ -1,6 +1,6 @@
 {
   "name": "use-window-scroll-in-element",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Hook for get window position of element",
   "keywords": [
     "react",
