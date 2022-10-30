@@ -19,6 +19,9 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Run build
+        run: npm run build
+
       - name: Publish "use-window-scroll-in-element"
         run: npm publish -w use-window-scroll-in-element
         env:

@@ -19,6 +19,9 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Run build
+        run: npm run build
+
       - name: Publish "react-scroll-flip-book"
         run: npm publish -w react-scroll-flip-book
         env:
