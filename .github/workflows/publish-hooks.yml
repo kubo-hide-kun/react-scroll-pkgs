@@ -1,4 +1,4 @@
-name: Publish Package to npmjs
+name: Publish "use-window-scroll-in-element" to npmjs 
 
 on:
   workflow_dispatch:

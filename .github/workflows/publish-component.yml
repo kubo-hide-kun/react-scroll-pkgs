@@ -1,4 +1,4 @@
-name: Publish Package to npmjs
+name: Publish "react-scroll-flip-book" to npmjs
 
 on:
   workflow_dispatch:
