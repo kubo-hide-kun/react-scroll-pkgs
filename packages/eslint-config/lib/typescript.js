@@ -6,6 +6,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: '_' }],
     "@typescript-eslint/ban-ts-comment": "error",
     "@typescript-eslint/no-namespace": "off"
   },

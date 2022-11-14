@@ -5,5 +5,6 @@ module.exports = {
     '../lib/react.js',
     '../lib/react-typescript.js',
     '../lib/prettier.js',
+    '../lib/turbo.js',
   ],
 };

@@ -1,5 +1,5 @@
 {
-  "extends": "./library.json",
+  "extends": "tsconfig-custom/library",
   "display": "React Library",
   "compilerOptions": {
     "jsx": "react-jsx"

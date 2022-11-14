@@ -1,5 +1,0 @@
-{
-  "extends": [
-    "../eslint-config/presets/react-typescript.js"
-  ]
-}

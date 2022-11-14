@@ -11,7 +11,7 @@ module.exports = {
   },
   rules: {
     "no-empty-function": 'error',
-    "no-unused-vars": 'error',
+    "no-unused-vars": ['error', { argsIgnorePattern: '_' }],
     'import/no-duplicates': 'error',
     "import/order": [
       "error",

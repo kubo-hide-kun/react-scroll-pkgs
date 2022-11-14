@@ -1,6 +1,6 @@
 {
   "name": "use-window-scroll-in-element",
-  "version": "0.1.1",
+  "version": "1.1.1",
   "description": "React Hook for get window position of element",
   "keywords": [
     "react",
@@ -44,7 +44,9 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
+    "eslint-config-custom": "*",
     "rimraf": "^3.0.2",
+    "tsconfig-custom": "*",
     "typescript": "^4.8.4"
   },
   "dependencies": {

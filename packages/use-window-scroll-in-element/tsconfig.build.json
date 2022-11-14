@@ -1,10 +1,11 @@
 {
-  "extends": "../tsconfig/configs/library-react.json",
+  "extends": "./tsconfig.json",
   "include": ["src/**/*"],
   "compilerOptions": {
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./lib/typescript",
+    "module": "commonjs",
     "outDir": "./lib",
   },
 }

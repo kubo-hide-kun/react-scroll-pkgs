@@ -1,8 +1,8 @@
 {
-  "extends": "./common.json",
+  "extends": "tsconfig-custom/common",
   "display": "TS Library",
   "compilerOptions": {
-    "lib": ["esnext", "dom"],
+    "lib": ["ESNext", "dom"],
     "target": "es5",
     "skipLibCheck": true,
     "resolveJsonModule": true,

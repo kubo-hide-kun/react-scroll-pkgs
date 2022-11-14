@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig/configs/library-react.json",
+  "extends": "tsconfig-custom/library-react",
   "include": ["src/**/*"],
   "compilerOptions": {
     "baseUrl": ".",
