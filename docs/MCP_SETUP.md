@@ -1,6 +1,10 @@
 # MCP Server 設定ガイド
 
-このプロジェクト用の MCP (Model Context Protocol) Server 設定を追加する手順です。
+> **注意**: このドキュメントは日本語版です（開発者向け）。  
+> **Note**: This is the Japanese version (for developers).
+
+このプロジェクト用の MCP (Model Context Protocol) Server 設定を追加する手順です。  
+This guide explains how to add MCP Server configuration for this project.
 
 ## 設定ファイルの場所
 

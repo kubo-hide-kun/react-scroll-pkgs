@@ -98,8 +98,11 @@ excluded_tools: []
 
 # initial prompt for the project. It will always be given to the LLM upon activating the project
 # (contrary to the memories, which are loaded on demand).
+# Note: This prompt is in English for international agent compatibility.
+# The project is OSS with Japanese developers but international audience.
 initial_prompt: |
   # Project: react-scroll-pkgs (Turborepo monorepo)
+  # OSS Project: Open source, Japanese developer, international audience
   
   ## Project Structure
   - **apps/website**: Demo/documentation site (not published, hosted at https://react-scroll-pkgs.vercel.app/)

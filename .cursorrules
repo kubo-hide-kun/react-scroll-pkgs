@@ -1,8 +1,14 @@
 # Project: react-scroll-pkgs (Turborepo monorepo)
+# OSS Project: Open source, Japanese developer, international audience
 # Structure:
 # - apps/website : demo / docs site
 # - packages/*   : publishable libraries
 # Tooling: turbo.json, husky, commitlint, prettier
+#
+# Language Note:
+# - This file is in Japanese for Japanese developers
+# - Public documentation should be in English
+# - Agent-facing docs (.serena/memories/) are in English for international compatibility
 
 ## Scope rules
 - 変更対象を最小化する。apps と packages をまたぐ変更は「必要性」を先に説明してから実施。

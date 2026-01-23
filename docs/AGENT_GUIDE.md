@@ -1,6 +1,10 @@
 # Agent Guide for react-scroll-pkgs
 
-このドキュメントは、Cursor エージェントがこのプロジェクトを理解し、適切な変更を提案するためのガイドです。
+> **注意**: このドキュメントは日本語版です。英語版は [AGENT_GUIDE.en.md](./AGENT_GUIDE.en.md) を参照してください。  
+> **Note**: This is the Japanese version. For English version, see [AGENT_GUIDE.en.md](./AGENT_GUIDE.en.md).
+
+このドキュメントは、Cursor エージェントがこのプロジェクトを理解し、適切な変更を提案するためのガイドです。  
+This document is a guide for Cursor agents to understand this project and propose appropriate changes.
 
 ## プロジェクト構造
 
