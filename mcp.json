@@ -1,0 +1,42 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--vision"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "."
+      ],
+      "cwd": "."
+    },
+    "cipher": {
+      "command": "cipher",
+      "args": [
+        "--mode",
+        "mcp"
+      ],
+      "cwd": ".",
+      "env": {
+        "CIPHER_EMBEDDER": "local"
+      }
+    }
+  }
+}

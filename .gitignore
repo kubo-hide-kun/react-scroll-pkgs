@@ -31,3 +31,11 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# serena
+.serena/*
+!.serena/project.yml
+
+# cipher
+.cipher/*
+!.cipher/.gitkeep
