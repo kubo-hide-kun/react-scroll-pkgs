@@ -21,6 +21,18 @@ This project is published as OSS. The developers are Japanese, but the target au
 
 ## ドキュメント一覧 / Documentation List
 
+### 公開用ドキュメント / Public Documentation
+
+- **[../README.md](../README.md)** (英語 / English)
+  - プロジェクト全体の概要とクイックスタート
+  - Project overview and quick start
+- **[../packages/use-window-scroll-in-element/README.md](../packages/use-window-scroll-in-element/README.md)** (英語 / English)
+  - use-window-scroll-in-element パッケージの完全なドキュメント
+  - Complete documentation for use-window-scroll-in-element package
+- **[../packages/react-scroll-flip-book/README.md](../packages/react-scroll-flip-book/README.md)** (英語 / English)
+  - react-scroll-flip-book パッケージの完全なドキュメント
+  - Complete documentation for react-scroll-flip-book package
+
 ### 開発者向け / For Developers
 
 - **[AGENT_GUIDE.md](./AGENT_GUIDE.md)** (日本語 / Japanese)
