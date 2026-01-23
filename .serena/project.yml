@@ -1,3 +1,6 @@
+# Serena Project Configuration for react-scroll-pkgs
+# Turborepo monorepo with TypeScript/React packages
+
 # list of languages for which language servers are started; choose from:
 #   al                  bash                clojure             cpp                 csharp
 #   csharp_omnisharp    dart                elixir              elm                 erlang
@@ -8,9 +11,9 @@
 #   ruby                ruby_solargraph     rust                scala               swift
 #   terraform           toml                typescript          typescript_vts      vue
 #   yaml                zig
-#   (This list may be outdated. For the current list, see values of Language enum here:
-#   https://github.com/oraios/serena/blob/main/src/solidlsp/ls_config.py
-#   For some languages, there are alternative language servers, e.g. csharp_omnisharp, ruby_solargraph.)
+# (This list may be outdated. For the current list, see values of Language enum here:
+# https://github.com/oraios/serena/blob/main/src/solidlsp/ls_config.py
+# For some languages, there are alternative language servers, e.g. csharp_omnisharp, ruby_solargraph.)
 # Note:
 #   - For C, use cpp
 #   - For JavaScript, use typescript
@@ -33,7 +36,19 @@ ignore_all_files_in_gitignore: true
 
 # list of additional paths to ignore in all projects
 # same syntax as gitignore, so you can use * and **
-ignored_paths: []
+# Turborepo のビルド成果物やキャッシュを無視
+ignored_paths:
+  - "**/lib/**"
+  - "**/build/**"
+  - "**/.turbo/**"
+  - "**/node_modules/**"
+  - "**/.next/**"
+  - "**/out/**"
+  - "**/coverage/**"
+  - "**/*.jpg"
+  - "**/*.avif"
+  - "**/*.webp"
+  - "**/dist/**"
 
 # whether the project is in read-only mode
 # If set to true, all editing tools will be disabled and attempts to use them will result in an error
@@ -61,7 +76,7 @@ read_only: false
 #     e.g. in clients you have no control over, like Claude Desktop.
 #  * `insert_after_symbol`: Inserts content after the end of the definition of a given symbol.
 #  * `insert_at_line`: Inserts content at a given line in a file.
-#  * `insert_before_symbol`: Inserts content before the beginning of the definition of a given symbol.
+#  * `insert_before_symbol`: Inserts content before the beginning of a definition of a given symbol.
 #  * `list_dir`: Lists files and directories in the given directory (optionally with recursion).
 #  * `list_memories`: Lists memories in Serena's project-specific memory store.
 #  * `onboarding`: Performs onboarding (identifying the project structure and essential tasks, e.g. for testing or building).
@@ -83,7 +98,62 @@ excluded_tools: []
 
 # initial prompt for the project. It will always be given to the LLM upon activating the project
 # (contrary to the memories, which are loaded on demand).
-initial_prompt: ""
+initial_prompt: |
+  # Project: react-scroll-pkgs (Turborepo monorepo)
+  
+  ## Project Structure
+  - **apps/website**: Demo/documentation site (not published)
+  - **packages/***: Publishable libraries to npm
+  
+  ## Published Packages
+  - `react-scroll-flip-book` (v1.0.2): React Hook for scroll flip book functionality
+  - `use-window-scroll-in-element` (v1.1.1): React Hook for get window position of element
+  
+  ## Important Rules
+  1. **Minimize scope**: Changes across apps and packages require explanation of necessity first.
+  2. **Publish impact**: Changes affecting npm publish must explicitly state impact on package.json/exports/build.
+  3. **Lockfile**: Do not touch package-lock.json unless adding/updating dependencies.
+  4. **API changes**: Public API changes (function signatures, exports, behavior) must document compatibility, migration steps, and release type (patch/minor/major).
+  
+  ## Build & Publish Workflow
+  - Each package auto-builds via `prepublishOnly` script
+  - Build output: `lib/` directory (TypeScript compilation)
+  - Published files: `lib/`, `LICENSE` only (controlled by `files` field)
+  - GitHub Actions: `npm run build` → `npm publish -w <package-name>`
+  - **Critical**: Build task failure breaks entire publish workflow
+  
+  ## Turborepo Commands
+  - `turbo run build` - Build all packages (respects dependencies)
+  - `turbo run lint` - Lint all packages
+  - `turbo run lint:fix` - Auto-fix linting issues
+  - `turbo run typecheck` - Type check all packages
+  
+  ## Code Style
+  - TypeScript/React preferred
+  - Prettier: `singleQuote: true`, `arrowParens: always`
+  - Use Prettier for formatting, do not manually format
+  
+  ## Commit Convention
+  - Conventional commits format required
+  - Scope is mandatory (`all` or package name)
+  - Example: `feat(react-scroll-flip-book): add new feature`
+  
+  ## MCP (Model Context Protocol) Usage
+  - **Use MCP tools extensively**: This project has multiple MCP Servers configured
+  - **Priority order**:
+    1. Code search/symbol operations: Use `serena` tools (`find_symbol`, `find_referencing_symbols`, `get_symbols_overview`)
+    2. Web app verification: Use `playwright` or `chrome-devtools` for browser testing
+    3. Code understanding: Use `cipher` for semantic search
+    4. Traditional tools (grep, read_file): Use only as fallback when MCP cannot handle
+  
+  ## Validation Checklist (Fixed Order)
+  1. `turbo run lint` - Check linting errors
+  2. `turbo run typecheck` - Check type errors
+  3. `turbo run build` - Verify build success (critical for publish workflow)
+  4. `apps/website` verification - Use MCP `playwright` or `chrome-devtools` for browser verification
+  
+  ## Output Format
+  Always provide: "Plan (max 5 steps)" → "Diff" → "Verification Results" → "Remaining Risks"
 
 project_name: "react-scroll-pkgs"
 included_optional_tools: []

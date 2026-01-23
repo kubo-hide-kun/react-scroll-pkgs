@@ -65,9 +65,68 @@
 - GitHub Actions の `workflow_dispatch` で手動公開
 - 公開前に必ず `turbo run build` が成功することを確認
 
+## MCP (Model Context Protocol) の活用
+
+このプロジェクトでは、**MCP をフル活用することが必須**です。以下の MCP Server が設定されており、可能な限り活用してください。
+
+### 利用可能な MCP Servers
+
+#### playwright
+- **用途**: ブラウザ自動化とビジョン機能
+- **使用場面**:
+  - `apps/website` の動作確認
+  - デモサイトの E2E テスト
+  - ビジュアルリグレッションテスト
+  - スクリーンショット取得
+
+#### chrome-devtools
+- **用途**: Chrome DevTools Protocol を使用したブラウザデバッグ
+- **使用場面**:
+  - パフォーマンス分析
+  - ネットワークリクエストの確認
+  - コンソールログの確認
+  - 要素の詳細な調査
+
+#### serena
+- **用途**: プロジェクトコンテキスト対応の IDE アシスタント
+- **使用場面**:
+  - コード検索（`find_symbol`, `search_for_pattern`）
+  - シンボルの参照元検索（`find_referencing_symbols`）
+  - コードの構造理解（`get_symbols_overview`）
+  - シンボルのリネーム（`rename_symbol`）
+
+#### cipher
+- **用途**: ローカルエンベッダー
+- **使用場面**:
+  - コードの意味理解
+  - セマンティック検索
+  - 類似コードの検索
+
+### MCP 使用の優先順位
+
+1. **コード検索・シンボル操作**: `serena` を優先的に使用
+   - 従来の `grep` や `codebase_search` の代わりに `serena` の `find_symbol` や `search_for_pattern` を使用
+   - シンボルの参照元を調べる場合は `find_referencing_symbols` を使用
+
+2. **Web アプリケーションの動作確認**: `playwright` または `chrome-devtools` を使用
+   - `apps/website` の動作確認は必ずブラウザで確認
+   - スクリーンショットやスナップショットを取得して視覚的に確認
+
+3. **コードの意味理解**: `cipher` を活用
+   - セマンティック検索が必要な場合に使用
+
+4. **従来のツール**: MCP で対応できない場合のみ使用
+   - `grep`, `read_file`, `codebase_search` などは、MCP で対応できない場合のフォールバック
+
+### 重要な注意事項
+
+- **ブラウザ操作が必要な場合**: `apps/website` の動作確認やデモの検証時は、必ず `playwright` または `chrome-devtools` を使用して実際のブラウザで確認すること。推測やコードレビューだけでは不十分。
+- **コード検索**: シンボル名が分かっている場合は、`serena` の `find_symbol` を使用。パターンマッチングが必要な場合は `search_for_pattern` を使用。
+- **プロジェクト構造の理解**: 新しいファイルやディレクトリを理解する際は、`serena` の `get_symbols_overview` を活用。
+
 ## 開発時の注意点
 
-1. **apps と packages の境界**: `apps/website` はデモ用途。パッケージの変更がデモに影響しないか確認
-2. **依存関係の循環**: `react-scroll-flip-book` は `use-window-scroll-in-element` に依存。循環依存を避ける
+1. **apps と packages の境界**: `apps/website` はデモ用途。パッケージの変更がデモに影響しないか確認（**MCP の `playwright` を使用してブラウザで確認**）
+2. **依存関係の循環**: `react-scroll-flip-book` は `use-window-scroll-in-element` に依存。循環依存を避ける（**`serena` の `find_referencing_symbols` で確認**）
 3. **型定義の整合性**: `lib/typescript/index.d.ts` が正しく生成されることを確認
 4. **Prettier 設定**: `singleQuote: true`, `arrowParens: always` に従う

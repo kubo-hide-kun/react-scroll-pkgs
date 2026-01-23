@@ -42,8 +42,22 @@
 ## Output format
 - まず「計画（最大5ステップ）」→「差分」→「検証結果」→「残リスク」の順で回答する。
 
+## MCP (Model Context Protocol) 活用
+- **MCP をフル活用すること**: このプロジェクトでは複数の MCP Server が設定されているため、可能な限り MCP ツールを活用する。
+- **利用可能な MCP Servers**:
+  - `playwright`: ブラウザ自動化とビジョン機能。Web アプリケーションの動作確認や E2E テストに使用。
+  - `chrome-devtools`: Chrome DevTools Protocol を使用したブラウザデバッグ。パフォーマンス分析やデバッグに使用。
+  - `serena`: プロジェクトコンテキスト対応の IDE アシスタント。コード検索やシンボル操作に使用。
+  - `cipher`: ローカルエンベッダー。コードの意味理解や検索に使用。
+- **MCP 使用の優先順位**:
+  1. コード検索・シンボル操作: `serena` を優先的に使用
+  2. Web アプリケーションの動作確認: `playwright` または `chrome-devtools` を使用
+  3. コードの意味理解: `cipher` を活用
+  4. 従来のツール（grep、read_file など）は、MCP で対応できない場合のみ使用
+- **ブラウザ操作が必要な場合**: `apps/website` の動作確認やデモの検証時は、必ず `playwright` または `chrome-devtools` を使用して実際のブラウザで確認する。
+
 ## Validation checklist (実行順序固定)
 1. `turbo run lint` - リントエラーの確認
 2. `turbo run typecheck` - 型エラーの確認
 3. `turbo run build` - ビルド成功の確認（publish ワークフローを壊さないための最重要）
-4. `apps/website` の動作確認（デモが壊れていないか）
+4. `apps/website` の動作確認（デモが壊れていないか）- **MCP の `playwright` または `chrome-devtools` を使用してブラウザで確認**
