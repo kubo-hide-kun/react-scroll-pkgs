@@ -102,12 +102,20 @@ initial_prompt: |
   # Project: react-scroll-pkgs (Turborepo monorepo)
   
   ## Project Structure
-  - **apps/website**: Demo/documentation site (not published)
+  - **apps/website**: Demo/documentation site (not published, hosted at https://react-scroll-pkgs.vercel.app/)
   - **packages/***: Publishable libraries to npm
   
   ## Published Packages
   - `react-scroll-flip-book` (v1.0.2): React Hook for scroll flip book functionality
+    - npm: https://www.npmjs.com/package/react-scroll-flip-book
+    - Install: `npm install react-scroll-flip-book`
   - `use-window-scroll-in-element` (v1.1.1): React Hook for get window position of element
+    - npm: https://www.npmjs.com/package/use-window-scroll-in-element
+    - Install: `npm install use-window-scroll-in-element`
+  
+  ## Project Links
+  - GitHub: https://github.com/kubo-hide-kun/react-scroll-pkgs
+  - Demo Site: https://react-scroll-pkgs.vercel.app/ (hosted on Vercel)
   
   ## Important Rules
   1. **Minimize scope**: Changes across apps and packages require explanation of necessity first.

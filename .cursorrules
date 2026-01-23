@@ -25,8 +25,19 @@
 
 ## Published packages
 - `react-scroll-flip-book` (v1.0.2): React Hook for scroll flip book functionality
+  - npm: https://www.npmjs.com/package/react-scroll-flip-book
+  - インストール: `npm install react-scroll-flip-book`
 - `use-window-scroll-in-element` (v1.1.1): React Hook for get window position of element
+  - npm: https://www.npmjs.com/package/use-window-scroll-in-element
+  - インストール: `npm install use-window-scroll-in-element`
 - これらのパッケージの変更は、GitHub Actions の公開ワークフロー（`publish-component.yml`, `publish-hooks.yml`）に影響する。
+
+## Project links
+- GitHub: https://github.com/kubo-hide-kun/react-scroll-pkgs
+- デモサイト: https://react-scroll-pkgs.vercel.app/ (Vercel でホスティング)
+- npm パッケージ:
+  - https://www.npmjs.com/package/react-scroll-flip-book
+  - https://www.npmjs.com/package/use-window-scroll-in-element
 
 ## PR/commit hygiene
 - commitlint 前提：conventional commits 形式でメッセージ案も提示する。

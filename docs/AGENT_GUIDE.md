@@ -6,11 +6,20 @@
 
 ### モノレポ構成
 - **`apps/website`**: デモ・ドキュメントサイト（公開対象外）
+  - **デモサイト**: https://react-scroll-pkgs.vercel.app/ (Vercel でホスティング)
 - **`packages/*`**: npm に公開されるライブラリ（公開対象）
 
 ### Turborepo ワークスペース
 - ルートの `package.json` で `workspaces` を定義
 - `turbo.json` でタスクパイプラインを定義
+
+## プロジェクトリンク
+
+- **GitHub リポジトリ**: https://github.com/kubo-hide-kun/react-scroll-pkgs
+- **デモサイト**: https://react-scroll-pkgs.vercel.app/
+- **npm パッケージ**:
+  - [react-scroll-flip-book](https://www.npmjs.com/package/react-scroll-flip-book)
+  - [use-window-scroll-in-element](https://www.npmjs.com/package/use-window-scroll-in-element)
 
 ## 公開パッケージ
 
@@ -20,6 +29,8 @@
 - **型定義**: `lib/typescript/index.d.ts`
 - **公開ファイル**: `lib/`, `LICENSE`
 - **依存関係**: `use-window-scroll-in-element` を使用
+- **npm**: https://www.npmjs.com/package/react-scroll-flip-book
+- **インストール**: `npm install react-scroll-flip-book`
 
 ### use-window-scroll-in-element (v1.1.1)
 - **責務**: React Hook for get window position of element
@@ -27,6 +38,8 @@
 - **型定義**: `lib/typescript/index.d.ts`
 - **公開ファイル**: `lib/`, `LICENSE`
 - **依存関係**: `just-throttle` を使用
+- **npm**: https://www.npmjs.com/package/use-window-scroll-in-element
+- **インストール**: `npm install use-window-scroll-in-element`
 
 ## ビルド・公開プロセス
 
