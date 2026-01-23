@@ -1,0 +1,49 @@
+# Project: react-scroll-pkgs (Turborepo monorepo)
+# Structure:
+# - apps/website : demo / docs site
+# - packages/*   : publishable libraries
+# Tooling: turbo.json, husky, commitlint, prettier
+
+## Scope rules
+- 変更対象を最小化する。apps と packages をまたぐ変更は「必要性」を先に説明してから実施。
+- パッケージ公開（npm publish）に影響する変更は、package.json / exports / build 影響を明示してから実装。
+- lockfile（package-lock.json）は、依存追加・更新がない限り触らない。
+
+## Coding rules
+- TypeScript/React を優先。
+- 既存の Prettier 設定に従う（singleQuote: true, arrowParens: always）。フォーマットは prettier を正とし、手整形で流儀を変えない。
+- public API 変更（関数シグネチャ、export、挙動変更）は「互換性」「移行手順」「リリース種別（patch/minor/major）」を必ずコメントで残す。
+
+## Turbo workflow
+- コマンドは turbo 経由を優先:
+  - `turbo run build` - 全パッケージのビルド（依存関係を考慮）
+  - `turbo run lint` - 全パッケージのリント
+  - `turbo run lint:fix` - 全パッケージのリント自動修正
+  - `turbo run typecheck` - 全パッケージの型チェック
+  - `npm run website` - デモサイトの起動（`npm run dev -w website`）
+- プロジェクトに定義がなければ package 単位で実行。
+
+## Published packages
+- `react-scroll-flip-book` (v1.0.2): React Hook for scroll flip book functionality
+- `use-window-scroll-in-element` (v1.1.1): React Hook for get window position of element
+- これらのパッケージの変更は、GitHub Actions の公開ワークフロー（`publish-component.yml`, `publish-hooks.yml`）に影響する。
+
+## PR/commit hygiene
+- commitlint 前提：conventional commits 形式でメッセージ案も提示する。
+- scope は必須（`all` またはパッケージ名）。例: `feat(react-scroll-flip-book): add new feature`
+- 変更後は必ず "型チェック / lint / build / 最低限の動作確認" の結果を箇条書きで報告する。
+
+## Build & Publish workflow
+- 各パッケージは `prepublishOnly` スクリプトで自動ビルドされる。
+- ビルド出力: `lib/` ディレクトリ（TypeScript コンパイル結果）
+- 公開ファイル: `lib/`, `LICENSE` のみ（`files` フィールドで制御）
+- GitHub Actions は `npm run build` → `npm publish -w <package-name>` の順で実行される。
+
+## Output format
+- まず「計画（最大5ステップ）」→「差分」→「検証結果」→「残リスク」の順で回答する。
+
+## Validation checklist (実行順序固定)
+1. `turbo run lint` - リントエラーの確認
+2. `turbo run typecheck` - 型エラーの確認
+3. `turbo run build` - ビルド成功の確認（publish ワークフローを壊さないための最重要）
+4. `apps/website` の動作確認（デモが壊れていないか）
