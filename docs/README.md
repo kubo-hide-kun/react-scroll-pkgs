@@ -46,6 +46,11 @@ This project is published as OSS. The developers are Japanese, but the target au
 
 ### エージェント向け / For Agents
 
+- **[../agent-sops/README.md](../agent-sops/README.md)** - Agent SOP（再利用可能な作業手順）
+  - `release-npm-package.sop.md` - パッケージのリリース〜 npm 公開手順
+  - `format-and-open-pr.sop.md` - 整形・検証・コミット・PR 作成手順
+  - `verify-website-change.sop.md` - `apps/website` 変更のブラウザ実機検証手順
+  - Claude Code から全員が使えるよう、ルートの `.mcp.json` に `agent-sops` MCP サーバーを登録
 - `.serena/memories/` - Serena メモリファイル（英語 / English）
   - `project_overview.md` - プロジェクト概要
   - `package_details.md` - パッケージ詳細

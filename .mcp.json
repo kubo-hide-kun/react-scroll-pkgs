@@ -1,0 +1,43 @@
+{
+  "mcpServers": {
+    "agent-sops": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "strands-agents-sops==1.1.2",
+        "strands-agents-sops",
+        "mcp",
+        "--sop-paths",
+        "agent-sops"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--vision"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "."
+      ]
+    },
+    "cipher": {
+      "command": "cipher",
+      "args": ["--mode", "mcp"],
+      "env": {
+        "CIPHER_EMBEDDER": "local"
+      }
+    }
+  }
+}
