@@ -126,7 +126,7 @@ These values represent the **scroll progress as a percentage** (0.0 to 1.0):
 - `fraction.top = 1` at the end of the scrollable area
 - Calculated as: `position / scrollableHeight`
 
-**Note:** If the element's height is less than the window height, `scrollableHeight` can be negative, which may result in unexpected fraction values.
+**Note:** These values assume the tracked element is taller than the viewport (the usual setup for scroll-linked sections). If the element is shorter than the window, `scrollableHeight` can be `<= 0`; clamp `fraction` in your code if you need to support that case.
 
 #### `isInside`
 
@@ -276,11 +276,10 @@ function OptimizedComponent() {
    - Uses `useRefValue` to handle ref changes via polling
    - Ensures updates continue even if ref is swapped
 
-### Important Notes
+### Notes
 
-⚠️ **Window Resize Handling**: The current implementation listens to `scroll` events for window size changes instead of `resize` events. This may cause issues when the window is resized without scrolling. Consider using a resize observer or listening to `resize` events separately.
-
-⚠️ **Negative Scrollable Height**: If the element's height is less than the window height, `scrollableHeight` becomes negative, which can result in unexpected `fraction` values. Consider adding guards or clamping values in your application code.
+- **Window size updates**: The window height is recomputed as you scroll, so values stay in sync during normal scrolling. If the viewport is resized while completely stationary (no scroll at all), the new size is applied on the next scroll — trigger a recalculation on `resize` in your app if you need to cover that case.
+- **Target taller than the viewport**: `fraction` assumes the tracked element is taller than the window, which is the normal setup for scroll-linked sections. If the element is shorter than the viewport, `scrollableHeight` can be `<= 0`; clamp `fraction` in your code if you need to support that.
 
 ## Browser Support
 

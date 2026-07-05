@@ -81,24 +81,21 @@ function App() {
     }
     ```
     コンポーネントは自動的に最適なサポートフォーマットを選択します。
-  - **`shouldBackGroundLoading?`** (`boolean`) - 他のソースが表示されているときにバックグラウンドで画像をロードするかどうか
 
 #### オプションプロパティ
 
-| プロパティ                       | 型                                                    | デフォルト                      | 説明                                                                                                        |
-| -------------------------------- | ----------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `sources`                        | `Array<Source>`                                       | `[]`                            | 異なるフレームセット用のレスポンシブブレークポイント。各ソースは画面幅 >= `breakPoint` のときに適用されます |
-| `pause`                          | `boolean`                                             | `false`                         | アニメーションを一時停止（現在のフレームで凍結）                                                            |
-| `preLoadingSize`                 | `number`                                              | `undefined`                     | 事前にロードするフレーム数。指定しない場合、すべてのフレームが一度にロードされます                          |
-| `canvasSize`                     | `{ width: number; height: number }`                   | `{ width: 1920, height: 1920 }` | Canvas 描画バッファサイズ（CSS サイズではありません）。高い値 = より高品質だがメモリ消費も増加              |
-| `background`                     | `string`                                              | `'transparent'`                 | Canvas の背景色または画像                                                                                   |
-| `positionFixed`                  | `boolean`                                             | `false`                         | Canvas に `position: fixed` を使用（ヒーローセクションに有用）                                              |
-| `animationStartPosition`         | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | アニメーションが開始するウィンドウ位置                                                                      |
-| `animationEndPosition`           | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | アニメーションが終了するウィンドウ位置                                                                      |
-| `shouldChangeSourceOnResize`     | `boolean`                                             | `undefined`                     | リサイズ時に画面サイズに基づいてソースを変更（現在未実装）                                                  |
-| `shouldBackGroundLoadingOnPause` | `boolean`                                             | `undefined`                     | 一時停止中にバックグラウンドで画像をロード（現在未実装）                                                    |
-| `onUpdateImage`                  | `(args: { index: number; progress: number }) => void` | `undefined`                     | フレームが変更されたときに発火するコールバック                                                              |
-| `onPreloadImages`                | `() => void`                                          | `undefined`                     | プリロードが完了したときに発火するコールバック                                                              |
+| プロパティ               | 型                                                    | デフォルト                      | 説明                                                                                                        |
+| ------------------------ | ----------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `sources`                | `Array<Source>`                                       | `[]`                            | 異なるフレームセット用のレスポンシブブレークポイント。各ソースは画面幅 >= `breakPoint` のときに適用されます |
+| `pause`                  | `boolean`                                             | `false`                         | アニメーションを一時停止（現在のフレームで凍結）                                                            |
+| `preLoadingSize`         | `number`                                              | `undefined`                     | 事前にロードするフレーム数。指定しない場合、すべてのフレームが一度にロードされます                          |
+| `canvasSize`             | `{ width: number; height: number }`                   | `{ width: 1920, height: 1920 }` | Canvas 描画バッファサイズ（CSS サイズではありません）。高い値 = より高品質だがメモリ消費も増加              |
+| `background`             | `string`                                              | `'transparent'`                 | Canvas の背景色または画像                                                                                   |
+| `positionFixed`          | `boolean`                                             | `false`                         | Canvas に `position: fixed` を使用（ヒーローセクションに有用）                                              |
+| `animationStartPosition` | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | アニメーションが開始するウィンドウ位置                                                                      |
+| `animationEndPosition`   | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | アニメーションが終了するウィンドウ位置                                                                      |
+| `onUpdateImage`          | `(args: { index: number; progress: number }) => void` | `undefined`                     | フレームが変更されたときに発火するコールバック                                                              |
+| `onPreloadImages`        | `() => void`                                          | `undefined`                     | プリロードが完了したときに発火するコールバック                                                              |
 
 #### Source 型
 
@@ -106,7 +103,6 @@ function App() {
 type Source = {
   breakPoint: number; // このソースを適用する最小画面幅（px）
   framePaths: { [encodeType in Encode]?: string }[];
-  shouldBackGroundLoading?: boolean;
 };
 ```
 
@@ -314,13 +310,11 @@ function HighQualityFlipbook() {
    - `calcCanvasScale` で高 DPI ディスプレイを処理
    - `drawImage()` API を使用して画像を描画
 
-### 重要な実装詳細
+### 使用上のポイント
 
-⚠️ **スクロール可能なコンテナが必要**: コンポーネントのラッパーは `height: 100%` なので、アニメーションを動作させるには**十分な高さ（例: `200vh`、`300vh`）を持つスクロール可能なコンテナを提供する必要があります**。コンポーネント自体はスクロール可能な領域を作成しません。
-
-⚠️ **Canvas サイズ vs CSS サイズ**: `canvasSize` は**描画バッファサイズ**であり、CSS 表示サイズではありません。コンポーネントは `calcCanvasScale` を使用して Canvas を CSS 寸法に自動的にスケールします。高いバッファサイズは高 DPI ディスプレイでより高品質を提供しますが、メモリ消費も増加します。
-
-⚠️ **フレームパスフォーマット**: 各フレームパスオブジェクトには、ブラウザ互換性のために複数のフォーマットを含める必要があります。コンポーネントは自動的に最適なサポートフォーマットを選択します。
+- **スクロール可能なコンテナ**: コンポーネントのラッパーは `height: 100%` です。アニメーションを動かすには、十分な高さ（例: `200vh`、`300vh`）を持つスクロール可能なコンテナを用意してください。コンポーネントはそのスクロール量をフレームにマッピングします（スクロール領域自体は生成しません）。
+- **Canvas サイズと CSS サイズ**: `canvasSize` は**描画バッファサイズ**で、CSS 表示サイズとは別物です。Canvas は `calcCanvasScale` によって CSS 寸法へ自動スケールされるため、バッファを大きくすると高 DPI ディスプレイでの描画が鮮明になります（その分メモリを消費します）。
+- **フレームパスの形式**: 各フレームに複数フォーマットを指定すると、より広いブラウザをカバーできます。最適なフォーマットは自動で選択されます。
 
 ## パフォーマンス考慮事項
 

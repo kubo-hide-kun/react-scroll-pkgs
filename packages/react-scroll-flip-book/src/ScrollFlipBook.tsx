@@ -18,12 +18,10 @@ import { calcCanvasScale, calcCoverRect } from './utils/canvas';
 export type Props = {
   defaultSource: {
     framePaths: { [encodeType in Encode]?: string }[];
-    shouldBackGroundLoading?: boolean;
   };
   sources?: {
     breakPoint: number;
     framePaths: { [encodeType in Encode]?: string }[];
-    shouldBackGroundLoading?: boolean;
   }[];
   pause?: boolean;
   preLoadingSize?: number;
@@ -32,8 +30,6 @@ export type Props = {
   positionFixed?: boolean;
   animationStartPosition?: 'window-top' | 'window-center' | 'window-bottom';
   animationEndPosition?: 'window-top' | 'window-center' | 'window-bottom';
-  shouldChangeSourceOnResize?: boolean;
-  shouldBackGroundLoadingOnPause?: boolean;
   onUpdateImage?: (args: { index: number; progress: number }) => void;
   onPreloadImages?: VoidFunction;
 } & React.DetailedHTMLProps<
@@ -44,19 +40,15 @@ export type Props = {
 /**
  * @param defaultSource.
  * @param defaultSource.framePaths Array of animation frames to display
- * @param defaultSource.shouldBackGroundLoading Should the image be loaded in the background when other sources are displayed?
  * @param sources.
  * @param sources[n].breakPoint Minimum screen size to apply
  * @param sources[n].framePaths Array of animation frames to display
- * @param sources[n].shouldBackGroundLoading Should the image be loaded in the background when other sources are displayed?
  * @param pause Flag to pause the animation
  * @param preLoadingSize How many frames to load in advance (if not specified, all frames are acquired at once)
  * @param canvasSize canvas size (drawing buffer size)
  * @param background Background color/image
  * @param animationStartPosition Specify at which position the animation will start when the upper edge of this component reaches.
- * @param animationStartPosition Specifies at which position the animation should end when the bottom edge of this component reaches.
- * @param shouldChangeSourceOnResize If 'true', change the source to match the size of the screen every time it is resized. If 'false', do not change from the source at the time of site access.
- * @param shouldBackGroundLoadingOnPause Should images be loaded in the background while paused?
+ * @param animationEndPosition Specifies at which position the animation should end when the bottom edge of this component reaches.
  */
 export const ScrollFlipBook = forwardRef<HTMLDivElement, Props>(
   function ScrollFlipBook(
