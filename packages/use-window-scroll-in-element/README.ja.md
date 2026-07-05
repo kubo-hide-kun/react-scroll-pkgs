@@ -69,7 +69,6 @@ function MyComponent() {
 #### パラメータ
 
 - **`targetElmRef`** (`React.RefObject<HTMLElement>`) - 必須
-
   - スクロール位置を追跡したい対象要素を指す React ref
 
 - **`options`** (`Partial<Options>`) - オプション
@@ -126,7 +125,7 @@ function MyComponent() {
 - `fraction.top = 1` はスクロール可能領域の終了位置
 - 計算式: `position / scrollableHeight`
 
-**注意:** 要素の高さがウィンドウの高さより小さい場合、`scrollableHeight` が負になる可能性があり、予期しない `fraction` 値になることがあります。
+**注意:** これらの値は、追跡対象の要素がビューポートより高いこと（スクロール連動セクションの一般的な構成）を前提としています。要素がウィンドウより小さい場合は `scrollableHeight` が `0 以下` になり得るため、そのケースをサポートしたい場合はアプリ側で `fraction` をクランプしてください。
 
 #### `isInside`
 
@@ -254,12 +253,10 @@ function OptimizedComponent() {
 ### 内部実装
 
 1. **スクロールイベントの監視**
-
    - `useWindowScrollEffect` フックを使用してウィンドウスクロールイベントを監視
    - `waitingMs` オプションに基づいてイベントをスロットル（`just-throttle` を使用）
 
 2. **位置の計算**
-
    - `getBoundingClientRect()` を使用して要素位置を取得
    - 要素基準のウィンドウ端位置を計算
    - `scrollStartPosition` と `scrollEndPosition` を考慮：
@@ -268,7 +265,6 @@ function OptimizedComponent() {
      - `window-bottom`: `windowHeight - rect.top` を使用
 
 3. **パーセンテージの計算**
-
    - スクロール可能な高さを計算: `elementHeight - windowHeight`
    - ピクセル位置をパーセンテージに変換: `position / scrollableHeight`
 
@@ -276,11 +272,10 @@ function OptimizedComponent() {
    - `useRefValue` を使用してポーリングで ref の変更を処理
    - ref が交換されても更新が継続されることを保証
 
-### 重要な注意事項
+### 補足
 
-⚠️ **ウィンドウリサイズの処理**: 現在の実装では、ウィンドウサイズの変更に対して `resize` イベントではなく `scroll` イベントを監視しています。スクロールせずにウィンドウをリサイズした場合、問題が発生する可能性があります。リサイズオブザーバーを使用するか、`resize` イベントを別途監視することを検討してください。
-
-⚠️ **負のスクロール可能高さ**: 要素の高さがウィンドウの高さより小さい場合、`scrollableHeight` が負になり、予期しない `fraction` 値になる可能性があります。アプリケーションコードでガードやクランプを追加することを検討してください。
+- **ウィンドウサイズの更新**: ウィンドウの高さはスクロールに合わせて再計算されるため、通常のスクロール中は値が同期し続けます。まったくスクロールせずにビューポートだけをリサイズした場合、新しいサイズは次のスクロール時に反映されます。静止したままのリサイズにも対応したい場合は、アプリ側で `resize` 時に再計算をトリガーしてください。
+- **要素がビューポートより高いこと**: `fraction` は、追跡対象の要素がウィンドウより高いこと（スクロール連動セクションの一般的な構成）を前提としています。要素がビューポートより小さい場合は `scrollableHeight` が `0 以下` になり得るため、そのケースをサポートしたい場合はアプリ側で `fraction` をクランプしてください。
 
 ## ブラウザサポート
 

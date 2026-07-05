@@ -81,24 +81,21 @@ function App() {
     }
     ```
     The component automatically selects the best supported format.
-  - **`shouldBackGroundLoading?`** (`boolean`) - Whether to load images in the background when other sources are displayed
 
 #### Optional Props
 
-| Prop                             | Type                                                  | Default                         | Description                                                                                            |
-| -------------------------------- | ----------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `sources`                        | `Array<Source>`                                       | `[]`                            | Responsive breakpoints for different frame sets. Each source applies when screen width >= `breakPoint` |
-| `pause`                          | `boolean`                                             | `false`                         | Pause the animation (freezes on current frame)                                                         |
-| `preLoadingSize`                 | `number`                                              | `undefined`                     | Number of frames to preload ahead. If not specified, all frames load at once                           |
-| `canvasSize`                     | `{ width: number; height: number }`                   | `{ width: 1920, height: 1920 }` | Canvas drawing buffer size (not CSS size). Higher = better quality but more memory                     |
-| `background`                     | `string`                                              | `'transparent'`                 | Background color or image for the canvas                                                               |
-| `positionFixed`                  | `boolean`                                             | `false`                         | Use `position: fixed` for the canvas (useful for hero sections)                                        |
-| `animationStartPosition`         | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | Window position where animation starts                                                                 |
-| `animationEndPosition`           | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | Window position where animation ends                                                                   |
-| `shouldChangeSourceOnResize`     | `boolean`                                             | `undefined`                     | Change source based on screen size on resize (currently not implemented)                               |
-| `shouldBackGroundLoadingOnPause` | `boolean`                                             | `undefined`                     | Load images in background while paused (currently not implemented)                                     |
-| `onUpdateImage`                  | `(args: { index: number; progress: number }) => void` | `undefined`                     | Callback fired when frame changes                                                                      |
-| `onPreloadImages`                | `() => void`                                          | `undefined`                     | Callback fired when preloading completes                                                               |
+| Prop                     | Type                                                  | Default                         | Description                                                                                            |
+| ------------------------ | ----------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `sources`                | `Array<Source>`                                       | `[]`                            | Responsive breakpoints for different frame sets. Each source applies when screen width >= `breakPoint` |
+| `pause`                  | `boolean`                                             | `false`                         | Pause the animation (freezes on current frame)                                                         |
+| `preLoadingSize`         | `number`                                              | `undefined`                     | Number of frames to preload ahead. If not specified, all frames load at once                           |
+| `canvasSize`             | `{ width: number; height: number }`                   | `{ width: 1920, height: 1920 }` | Canvas drawing buffer size (not CSS size). Higher = better quality but more memory                     |
+| `background`             | `string`                                              | `'transparent'`                 | Background color or image for the canvas                                                               |
+| `positionFixed`          | `boolean`                                             | `false`                         | Use `position: fixed` for the canvas (useful for hero sections)                                        |
+| `animationStartPosition` | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | Window position where animation starts                                                                 |
+| `animationEndPosition`   | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | Window position where animation ends                                                                   |
+| `onUpdateImage`          | `(args: { index: number; progress: number }) => void` | `undefined`                     | Callback fired when frame changes                                                                      |
+| `onPreloadImages`        | `() => void`                                          | `undefined`                     | Callback fired when preloading completes                                                               |
 
 #### Source Type
 
@@ -106,7 +103,6 @@ function App() {
 type Source = {
   breakPoint: number; // Minimum screen width (px) to apply this source
   framePaths: { [encodeType in Encode]?: string }[];
-  shouldBackGroundLoading?: boolean;
 };
 ```
 
@@ -285,24 +281,20 @@ function HighQualityFlipbook() {
 ### Internal Flow
 
 1. **Scroll Progress Detection**
-
    - Uses `useWindowScrollInElement` hook internally
    - Tracks scroll progress as a fraction (0.0 to 1.0)
    - Only updates when element is in viewport (`disableValueChangesOffscreen: true`)
 
 2. **Frame Index Calculation**
-
    - Converts scroll fraction to frame index: `Math.ceil(fraction.top * frameCount)`
    - Clamps to valid range: `0` to `frameCount - 1`
 
 3. **Image Format Selection**
-
    - Detects browser support for AVIF, WebP, JPG, PNG
    - Selects best supported format from available frame paths
    - Uses `supportsEncode` utility (tests via Image loading)
 
 4. **Image Loading & Caching**
-
    - `useImageLoader` hook manages image cache
    - Loads images on demand
    - Preloads ahead based on `preLoadingSize`
@@ -314,13 +306,11 @@ function HighQualityFlipbook() {
    - Handles high DPI displays via `calcCanvasScale`
    - Draws image using `drawImage()` API
 
-### Important Implementation Details
+### Usage Notes
 
-⚠️ **Scrollable Container Required**: The component's wrapper has `height: 100%`, so **you must provide a scrollable container** with sufficient height (e.g., `200vh`, `300vh`) for the animation to work. The component itself doesn't create scrollable space.
-
-⚠️ **Canvas Size vs CSS Size**: `canvasSize` is the **drawing buffer size**, not the CSS display size. The component automatically scales the canvas to match CSS dimensions using `calcCanvasScale`. Higher buffer sizes provide better quality on high DPI displays but consume more memory.
-
-⚠️ **Frame Path Format**: Each frame path object should include multiple formats for browser compatibility. The component will automatically select the best supported format.
+- **Scrollable container**: The component's wrapper is `height: 100%`, so provide a scrollable container with enough height (e.g., `200vh`, `300vh`) to drive the animation. The component maps that scroll distance to frames rather than creating scroll space itself.
+- **Canvas size vs CSS size**: `canvasSize` is the **drawing buffer size**, not the CSS display size. The canvas is automatically scaled to its CSS dimensions via `calcCanvasScale`, so larger buffers give sharper output on high-DPI displays at the cost of memory.
+- **Frame path format**: Provide multiple formats per frame for the widest browser coverage; the best supported one is selected automatically.
 
 ## Performance Considerations
 
