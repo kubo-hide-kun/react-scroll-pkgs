@@ -84,11 +84,17 @@ export type SitePage = {
 
 export const SITE_PAGES: readonly SitePage[] = [
   { path: '/', changefreq: 'weekly', priority: 1.0 },
-  { path: '/use-window-scroll-in-element', changefreq: 'monthly', priority: 0.8 },
+  {
+    path: '/use-window-scroll-in-element',
+    changefreq: 'monthly',
+    priority: 0.8,
+  },
 ] as const;
 
 /** パスを絶対 URL に変換する。 */
 export const absoluteUrl = (path = '/'): string => {
   const normalized = path.startsWith('/') ? path : `/${path}`;
-  return `${SITE_URL}${normalized === '/' ? '' : normalized.replace(/\/$/, '')}`;
+  return `${SITE_URL}${
+    normalized === '/' ? '' : normalized.replace(/\/$/, '')
+  }`;
 };

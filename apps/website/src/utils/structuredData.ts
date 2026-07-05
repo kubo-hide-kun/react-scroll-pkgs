@@ -61,9 +61,7 @@ const softwareApplications: JsonLd[] = PACKAGES.map((pkg) => ({
   },
 }));
 
-const breadcrumb = (
-  items: { name: string; path: string }[]
-): JsonLd => ({
+const breadcrumb = (items: { name: string; path: string }[]): JsonLd => ({
   '@type': 'BreadcrumbList',
   itemListElement: items.map((item, index) => ({
     '@type': 'ListItem',
