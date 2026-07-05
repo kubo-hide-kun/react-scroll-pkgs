@@ -1,13 +1,24 @@
 import React from 'react';
 
+import { Seo } from '../../common/Seo';
+import { useI18n } from '../../../i18n';
+import { packageStructuredData } from '../../../utils/structuredData';
 import { Footer } from '../Top/internal/Footer';
 import { Nav } from '../Top/internal/Nav';
 import { ScrollHookDemo } from '../Top/internal/ScrollHookDemo';
 import { Section } from '../Top/internal/Section';
 
 export const UseWindowScrollInElement = () => {
+  const { t } = useI18n();
+
   return (
     <>
+      <Seo
+        title={t.hookMeta.title}
+        description={t.hookMeta.description}
+        path="/use-window-scroll-in-element"
+        structuredData={packageStructuredData('use-window-scroll-in-element')}
+      />
       <Nav />
       <Section
         eyebrow="Package 01 · The hook"

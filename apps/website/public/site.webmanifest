@@ -1,0 +1,22 @@
+{
+  "name": "react-scroll-pkgs — Scroll-linked React UI libraries",
+  "short_name": "react-scroll-pkgs",
+  "description": "Turn the scrollbar into an animation timeline. Two tiny, zero-config React packages: use-window-scroll-in-element and react-scroll-flip-book.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05060a",
+  "theme_color": "#05060a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

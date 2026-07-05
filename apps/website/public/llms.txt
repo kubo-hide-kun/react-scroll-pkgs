@@ -1,0 +1,45 @@
+# react-scroll-pkgs
+
+> Scroll-linked React UI libraries. react-scroll-pkgs is a small monorepo of
+> two tiny, zero-config TypeScript packages that turn the browser scrollbar into
+> an animation timeline: `use-window-scroll-in-element` (a scroll-progress hook)
+> and `react-scroll-flip-book` (a canvas frame-sequence player). Both are MIT
+> licensed and dependency-light.
+
+## Packages
+
+- [use-window-scroll-in-element](https://www.npmjs.com/package/use-window-scroll-in-element): A zero-dependency React hook that reports how far the window has scrolled through a target element, as pixels and as a normalized 0 → 1 fraction. Choose start/end anchors (window top / center / bottom) and bind the value to width, opacity, or transform. `npm i use-window-scroll-in-element`
+- [react-scroll-flip-book](https://www.npmjs.com/package/react-scroll-flip-book): A React component that draws a sequence of numbered frames onto a single `<canvas>`, one frame per scroll step. Includes smart look-ahead preloading, responsive per-breakpoint frame sets, and avif/webp/jpg source selection. `npm i react-scroll-flip-book`
+
+## Usage
+
+```tsx
+import { ScrollFlipBook } from 'react-scroll-flip-book';
+
+const frames = Array.from({ length: 162 }, (_, i) => {
+  const n = String(i + 1).padStart(3, '0');
+  return { avif: `/frames/${n}.avif`, jpg: `/frames/${n}.jpg` };
+});
+
+export function Hero() {
+  // The taller the wrapper, the slower the flip.
+  return (
+    <div style={{ height: '320vh' }}>
+      <ScrollFlipBook
+        defaultSource={{ framePaths: frames }}
+        animationStartPosition="window-bottom"
+        animationEndPosition="window-top"
+        positionFixed
+      />
+    </div>
+  );
+}
+```
+
+## Links
+
+- Live demo: https://react-scroll-pkgs.vercel.app/
+- Hook demo page: https://react-scroll-pkgs.vercel.app/use-window-scroll-in-element
+- Source repository: https://github.com/kubo-hide-kun/react-scroll-pkgs
+- License: MIT
+- Author: kubo-hide-kun (https://github.com/kubo-hide-kun)
