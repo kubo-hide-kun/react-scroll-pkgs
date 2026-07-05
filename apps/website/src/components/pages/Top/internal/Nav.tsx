@@ -1,8 +1,9 @@
 import React from 'react';
-import { IoLogoGithub } from 'react-icons/io5';
+import { IoLanguage, IoLogoGithub } from 'react-icons/io5';
 import styled from 'styled-components';
 
 import { repoUrl, theme } from '../../../../constants/theme';
+import { useI18n } from '../../../../i18n';
 
 const _Nav = styled.nav`
   position: fixed;
@@ -61,17 +62,49 @@ const _GitHub = styled.a`
   color: ${theme.color.text};
 `;
 
+const _LocaleButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: ${theme.color.text};
+  background: ${theme.color.surface};
+  border: 1px solid ${theme.color.surfaceBorder};
+  border-radius: 999px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    border-color: rgba(126, 212, 253, 0.5);
+    background: rgba(255, 255, 255, 0.07);
+  }
+`;
+
 export const Nav = () => {
+  const { t, locale, toggleLocale } = useI18n();
+
   return (
     <_Nav>
       <_Brand href="#top">react-scroll-pkgs</_Brand>
       <_Links>
-        <_Link href="#use-window-scroll-in-element">Hook</_Link>
-        <_Link href="#react-scroll-flip-book">Flipbook</_Link>
+        <_Link href="#use-window-scroll-in-element">{t.nav.hook}</_Link>
+        <_Link href="#react-scroll-flip-book">{t.nav.flipbook}</_Link>
         <_GitHub href={repoUrl} target="_blank" rel="noopener noreferrer">
           <IoLogoGithub size={19} />
-          GitHub
+          {t.nav.github}
         </_GitHub>
+        <_LocaleButton
+          type="button"
+          onClick={toggleLocale}
+          aria-label={
+            locale === 'en' ? 'Switch to Japanese' : 'Switch to English'
+          }
+        >
+          <IoLanguage size={17} />
+          {t.localeToggleLabel}
+        </_LocaleButton>
       </_Links>
     </_Nav>
   );
