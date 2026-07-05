@@ -9,11 +9,13 @@ This document is a guide for Cursor agents to understand this project and propos
 ## プロジェクト構造
 
 ### モノレポ構成
+
 - **`apps/website`**: デモ・ドキュメントサイト（公開対象外）
   - **デモサイト**: https://react-scroll-pkgs.vercel.app/ (Vercel でホスティング)
 - **`packages/*`**: npm に公開されるライブラリ（公開対象）
 
 ### Turborepo ワークスペース
+
 - ルートの `package.json` で `workspaces` を定義
 - `turbo.json` でタスクパイプラインを定義
 
@@ -28,6 +30,7 @@ This document is a guide for Cursor agents to understand this project and propos
 ## 公開パッケージ
 
 ### react-scroll-flip-book (v1.0.2)
+
 - **責務**: React Hook for scroll flip book functionality
 - **エントリーポイント**: `src/index.ts` → `lib/index.js`
 - **型定義**: `lib/typescript/index.d.ts`
@@ -37,6 +40,7 @@ This document is a guide for Cursor agents to understand this project and propos
 - **インストール**: `npm install react-scroll-flip-book`
 
 ### use-window-scroll-in-element (v1.1.1)
+
 - **責務**: React Hook for get window position of element
 - **エントリーポイント**: `src/index.ts` → `lib/index.js`
 - **型定義**: `lib/typescript/index.d.ts`
@@ -48,11 +52,13 @@ This document is a guide for Cursor agents to understand this project and propos
 ## ビルド・公開プロセス
 
 ### ビルド
+
 - 各パッケージは `tsc --project tsconfig.build.json` で TypeScript をコンパイル
 - 出力先: `lib/` ディレクトリ
 - `prepublishOnly` スクリプトで自動ビルドされる
 
 ### 公開ワークフロー（GitHub Actions）
+
 1. `npm ci` - 依存関係のインストール
 2. `npm run build` - 全パッケージのビルド（`turbo run build`）
 3. `npm publish -w <package-name>` - 特定パッケージの公開
@@ -62,16 +68,19 @@ This document is a guide for Cursor agents to understand this project and propos
 ## 破壊的変更の基準
 
 ### Major バージョンアップが必要な変更
+
 - public API の削除
 - 関数シグネチャの変更（引数の型・順序・必須性）
 - デフォルト動作の変更
 - 依存パッケージの major バージョンアップ
 
 ### Minor バージョンアップが必要な変更
+
 - 新機能の追加（後方互換性あり）
 - 既存 API の拡張（オプショナル引数の追加など）
 
 ### Patch バージョンアップが必要な変更
+
 - バグ修正
 - ドキュメント修正
 - 内部実装の改善（API 変更なし）
@@ -89,6 +98,7 @@ This document is a guide for Cursor agents to understand this project and propos
 ### 利用可能な MCP Servers
 
 #### playwright
+
 - **用途**: ブラウザ自動化とビジョン機能
 - **使用場面**:
   - `apps/website` の動作確認
@@ -97,6 +107,7 @@ This document is a guide for Cursor agents to understand this project and propos
   - スクリーンショット取得
 
 #### chrome-devtools
+
 - **用途**: Chrome DevTools Protocol を使用したブラウザデバッグ
 - **使用場面**:
   - パフォーマンス分析
@@ -105,6 +116,7 @@ This document is a guide for Cursor agents to understand this project and propos
   - 要素の詳細な調査
 
 #### serena
+
 - **用途**: プロジェクトコンテキスト対応の IDE アシスタント
 - **使用場面**:
   - コード検索（`find_symbol`, `search_for_pattern`）
@@ -113,6 +125,7 @@ This document is a guide for Cursor agents to understand this project and propos
   - シンボルのリネーム（`rename_symbol`）
 
 #### cipher
+
 - **用途**: ローカルエンベッダー
 - **使用場面**:
   - コードの意味理解
@@ -122,14 +135,17 @@ This document is a guide for Cursor agents to understand this project and propos
 ### MCP 使用の優先順位
 
 1. **コード検索・シンボル操作**: `serena` を優先的に使用
+
    - 従来の `grep` や `codebase_search` の代わりに `serena` の `find_symbol` や `search_for_pattern` を使用
    - シンボルの参照元を調べる場合は `find_referencing_symbols` を使用
 
 2. **Web アプリケーションの動作確認**: `playwright` または `chrome-devtools` を使用
+
    - `apps/website` の動作確認は必ずブラウザで確認
    - スクリーンショットやスナップショットを取得して視覚的に確認
 
 3. **コードの意味理解**: `cipher` を活用
+
    - セマンティック検索が必要な場合に使用
 
 4. **従来のツール**: MCP で対応できない場合のみ使用
