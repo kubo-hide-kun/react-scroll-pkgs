@@ -1,21 +1,21 @@
 import React from 'react';
 
-import { Demo3D } from '../Top/internal/Demo3D';
+import { Footer } from '../Top/internal/Footer';
+import { Nav } from '../Top/internal/Nav';
+import { ScrollHookDemo } from '../Top/internal/ScrollHookDemo';
+import { Section } from '../Top/internal/Section';
 
 export const UseWindowScrollInElement = () => {
   return (
-    <div>
-      <h1>useWindowScrollInElement</h1>
-      <p>
-        ターゲット要素からウィンドウがどれだけスクロールしたかを取得するフックです。
-      </p>
-      {new Array(20).fill(0).map((_, idx) => (
-        <p key={idx}>hogehoge</p>
-      ))}
-      <Demo3D />
-      {new Array(20).fill(0).map((_, idx) => (
-        <p key={idx}>hogehoge</p>
-      ))}
-    </div>
+    <>
+      <Nav />
+      <Section
+        eyebrow="Package 01 · The hook"
+        title="use-window-scroll-in-element"
+        lead="A React hook that reports how far the window has scrolled through a target element — as pixels and as a 0 → 1 fraction. Scroll down to bind it to a progress bar, a fade-in, and a parallax scene."
+      />
+      <ScrollHookDemo />
+      <Footer />
+    </>
   );
 };
