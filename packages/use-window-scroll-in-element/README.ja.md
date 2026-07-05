@@ -69,6 +69,7 @@ function MyComponent() {
 #### パラメータ
 
 - **`targetElmRef`** (`React.RefObject<HTMLElement>`) - 必須
+
   - スクロール位置を追跡したい対象要素を指す React ref
 
 - **`options`** (`Partial<Options>`) - オプション
@@ -253,10 +254,12 @@ function OptimizedComponent() {
 ### 内部実装
 
 1. **スクロールイベントの監視**
+
    - `useWindowScrollEffect` フックを使用してウィンドウスクロールイベントを監視
    - `waitingMs` オプションに基づいてイベントをスロットル（`just-throttle` を使用）
 
 2. **位置の計算**
+
    - `getBoundingClientRect()` を使用して要素位置を取得
    - 要素基準のウィンドウ端位置を計算
    - `scrollStartPosition` と `scrollEndPosition` を考慮：
@@ -265,6 +268,7 @@ function OptimizedComponent() {
      - `window-bottom`: `windowHeight - rect.top` を使用
 
 3. **パーセンテージの計算**
+
    - スクロール可能な高さを計算: `elementHeight - windowHeight`
    - ピクセル位置をパーセンテージに変換: `position / scrollableHeight`
 

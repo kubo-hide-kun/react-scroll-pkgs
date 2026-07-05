@@ -69,6 +69,7 @@ function MyComponent() {
 #### Parameters
 
 - **`targetElmRef`** (`React.RefObject<HTMLElement>`) - Required
+
   - A React ref pointing to the target element whose scroll position you want to track
 
 - **`options`** (`Partial<Options>`) - Optional
@@ -253,10 +254,12 @@ function OptimizedComponent() {
 ### Internal Implementation
 
 1. **Scroll Event Listening**
+
    - Uses `useWindowScrollEffect` hook to listen to window scroll events
    - Throttles events based on `waitingMs` option (uses `just-throttle`)
 
 2. **Position Calculation**
+
    - Gets element position using `getBoundingClientRect()`
    - Calculates window edge positions relative to the element
    - Accounts for `scrollStartPosition` and `scrollEndPosition`:
@@ -265,6 +268,7 @@ function OptimizedComponent() {
      - `window-bottom`: Uses `windowHeight - rect.top`
 
 3. **Fraction Calculation**
+
    - Calculates scrollable height: `elementHeight - windowHeight`
    - Converts pixel position to fraction: `position / scrollableHeight`
 

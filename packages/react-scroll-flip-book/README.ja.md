@@ -281,20 +281,24 @@ function HighQualityFlipbook() {
 ### 内部フロー
 
 1. **スクロール進捗の検出**
+
    - 内部的に `useWindowScrollInElement` フックを使用
    - 進捗をパーセンテージ（0.0 から 1.0）として追跡
    - 要素がビューポート内にあるときのみ更新（`disableValueChangesOffscreen: true`）
 
 2. **フレームインデックスの計算**
+
    - スクロールパーセンテージをフレームインデックスに変換: `Math.ceil(fraction.top * frameCount)`
    - 有効な範囲にクランプ: `0` から `frameCount - 1`
 
 3. **画像フォーマットの選択**
+
    - AVIF、WebP、JPG、PNG のブラウザサポートを検出
    - 利用可能なフレームパスから最適なサポートフォーマットを選択
    - `supportsEncode` ユーティリティを使用（Image ロードでテスト）
 
 4. **画像のロードとキャッシュ**
+
    - `useImageLoader` フックが画像キャッシュを管理
    - オンデマンドで画像をロード
    - `preLoadingSize` に基づいて事前にロード

@@ -281,20 +281,24 @@ function HighQualityFlipbook() {
 ### Internal Flow
 
 1. **Scroll Progress Detection**
+
    - Uses `useWindowScrollInElement` hook internally
    - Tracks scroll progress as a fraction (0.0 to 1.0)
    - Only updates when element is in viewport (`disableValueChangesOffscreen: true`)
 
 2. **Frame Index Calculation**
+
    - Converts scroll fraction to frame index: `Math.ceil(fraction.top * frameCount)`
    - Clamps to valid range: `0` to `frameCount - 1`
 
 3. **Image Format Selection**
+
    - Detects browser support for AVIF, WebP, JPG, PNG
    - Selects best supported format from available frame paths
    - Uses `supportsEncode` utility (tests via Image loading)
 
 4. **Image Loading & Caching**
+
    - `useImageLoader` hook manages image cache
    - Loads images on demand
    - Preloads ahead based on `preLoadingSize`
