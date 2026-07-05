@@ -4,6 +4,7 @@ import { ScrollFlipBookProps } from 'react-scroll-flip-book';
 import styled from 'styled-components';
 
 import { theme } from '../../../constants/theme';
+import { useI18n } from '../../../i18n';
 import { CodeBlock } from './internal/CodeBlock';
 import { FeatureCards } from './internal/FeatureCards';
 import { FirsView } from './internal/FirstView';
@@ -54,14 +55,13 @@ export type Props = {
 };
 
 export const Top = ({ framePaths }: Props) => {
+  const { t } = useI18n();
+
   return (
     <>
       <NextHead>
-        <title>react-scroll-pkgs — Scroll-linked React UI libraries</title>
-        <meta
-          name="description"
-          content="Turn the scrollbar into an animation timeline. Two tiny, zero-config React packages: use-window-scroll-in-element and react-scroll-flip-book."
-        />
+        <title>{t.meta.title}</title>
+        <meta name="description" content={t.meta.description} />
         {framePaths.slice(0, 20).map((framePath) => (
           <React.Fragment key={framePath.jpg}>
             <link
@@ -79,29 +79,11 @@ export const Top = ({ framePaths }: Props) => {
 
         <Section
           id="use-window-scroll-in-element"
-          eyebrow="Package 01 · The hook"
+          eyebrow={t.hookSection.eyebrow}
           title="use-window-scroll-in-element"
-          lead="A primitive hook that reports exactly where the viewport sits inside any element — as raw pixels and as a 0 → 1 fraction. Bind that one number to width, opacity, transform… anything."
+          lead={t.hookSection.lead}
         >
-          <FeatureCards
-            items={[
-              {
-                icon: '📐',
-                title: 'px & fraction',
-                body: 'Get both the pixel offset and a normalized 0–1 progress value for the top and bottom edges.',
-              },
-              {
-                icon: '🎚️',
-                title: 'Start / end anchors',
-                body: 'Choose whether tracking begins and ends at the window top, center, or bottom.',
-              },
-              {
-                icon: '🪶',
-                title: 'Zero dependencies',
-                body: 'A tiny throttled scroll listener. No context, no providers, no CSS to import.',
-              },
-            ]}
-          />
+          <FeatureCards items={t.hookSection.features} />
           <_Install>
             <ScriptBox script="npm i use-window-scroll-in-element" />
           </_Install>
@@ -111,29 +93,11 @@ export const Top = ({ framePaths }: Props) => {
 
         <Section
           id="react-scroll-flip-book"
-          eyebrow="Package 02 · The component"
+          eyebrow={t.flipbookSection.eyebrow}
           title="react-scroll-flip-book"
-          lead="Feed it a sequence of images and it draws one frame per scroll step to a canvas — preloading, scaling and cover-fitting for you. Scroll through the section below to flip all 162 frames."
+          lead={t.flipbookSection.lead}
         >
-          <FeatureCards
-            items={[
-              {
-                icon: '🎞️',
-                title: 'Canvas rendering',
-                body: 'Frames are painted to a single canvas, so playback stays smooth even with hundreds of images.',
-              },
-              {
-                icon: '⚡',
-                title: 'Smart preloading',
-                body: 'Loads frames just ahead of the scroll and supports avif / webp / jpg per encode.',
-              },
-              {
-                icon: '📱',
-                title: 'Responsive sources',
-                body: 'Swap frame sets at breakpoints so mobile and desktop each get the right assets.',
-              },
-            ]}
-          />
+          <FeatureCards items={t.flipbookSection.features} />
           <_Install>
             <ScriptBox script="npm i react-scroll-flip-book" />
           </_Install>
@@ -142,9 +106,9 @@ export const Top = ({ framePaths }: Props) => {
         <FlipBookDemo framePaths={framePaths} />
 
         <Section
-          eyebrow="Preview → Code"
-          title="That was ~10 lines"
-          lead="Everything you just scrolled through is driven by the snippet below. The height of the wrapper controls how much scrolling it takes to play; positionFixed pins the canvas while it plays."
+          eyebrow={t.codeSection.eyebrow}
+          title={t.codeSection.title}
+          lead={t.codeSection.lead}
         >
           <_CodeWrap>
             <CodeBlock script={FLIPBOOK_CODE} />

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useWindowScrollInElement } from 'use-window-scroll-in-element';
 
 import { theme } from '../../../../constants/theme';
+import { useI18n } from '../../../../i18n';
 import { CodeBlock } from './CodeBlock';
 
 const DEMO_CODE = `import { useRef } from 'react';
@@ -180,6 +181,7 @@ const _CodeCol = styled.div`
 const clamp01 = (v: number) => Math.min(Math.max(v, 0), 1);
 
 export const ScrollHookDemo = () => {
+  const { t } = useI18n();
   const areaRef = useRef<HTMLDivElement>(null);
   const { position, fraction } = useWindowScrollInElement(areaRef, {
     scrollStartPosition: 'window-bottom',
@@ -209,7 +211,7 @@ export const ScrollHookDemo = () => {
                   transform: `translateY(${(1 - p) * 40}px)`,
                 }}
               >
-                Fade &amp; Rise
+                {t.hookDemo.fadeRise}
               </_FadeCard>
             </_Row>
 

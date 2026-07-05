@@ -3,6 +3,7 @@ import { IoLogoGithub, IoLogoNpm, IoOpenOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 
 import { repoUrl, theme } from '../../../../constants/theme';
+import { useI18n } from '../../../../i18n';
 import { LinkButton } from './LinkButton';
 
 const _Wrapper = styled.footer`
@@ -55,41 +56,40 @@ const _Meta = styled.p`
 `;
 
 export const Footer = () => {
+  const { t } = useI18n();
+
   return (
     <_Wrapper>
       <_Inner>
-        <_Title>Build it yourself</_Title>
-        <_Lead>
-          Fork the repo, open it in an online editor, and start wiring the
-          scrollbar to your UI in seconds.
-        </_Lead>
+        <_Title>{t.footer.title}</_Title>
+        <_Lead>{t.footer.lead}</_Lead>
         <_Buttons>
           <LinkButton
             href={`https://stackblitz.com/github/kubo-hide-kun/react-scroll-pkgs`}
           >
             <IoOpenOutline size={19} />
-            Open on StackBlitz
+            {t.footer.openOnStackBlitz}
           </LinkButton>
           <LinkButton
             href={`https://codesandbox.io/s/github/kubo-hide-kun/react-scroll-pkgs`}
             variant="secondary"
           >
             <IoOpenOutline size={19} />
-            Open on CodeSandbox
+            {t.footer.openOnCodeSandbox}
           </LinkButton>
           <LinkButton href={repoUrl} variant="secondary">
             <IoLogoGithub size={19} />
-            GitHub
+            {t.footer.github}
           </LinkButton>
           <LinkButton
             href="https://www.npmjs.com/package/react-scroll-flip-book"
             variant="secondary"
           >
             <IoLogoNpm size={22} />
-            npm
+            {t.footer.npm}
           </LinkButton>
         </_Buttons>
-        <_Meta>MIT Licensed · react-scroll-pkgs</_Meta>
+        <_Meta>{t.footer.meta}</_Meta>
       </_Inner>
     </_Wrapper>
   );

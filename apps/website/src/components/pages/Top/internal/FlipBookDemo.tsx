@@ -4,6 +4,7 @@ import type { ScrollFlipBookProps } from 'react-scroll-flip-book';
 import styled from 'styled-components';
 
 import { theme } from '../../../../constants/theme';
+import { useI18n } from '../../../../i18n';
 
 const _Area = styled.div`
   position: relative;
@@ -132,6 +133,7 @@ type Props = {
 };
 
 export const FlipBookDemo = ({ framePaths }: Props) => {
+  const { t } = useI18n();
   const total = framePaths.length;
   const [frame, setFrame] = useState({ index: 0, progress: 0 });
 
@@ -156,15 +158,12 @@ export const FlipBookDemo = ({ framePaths }: Props) => {
             react-scroll-flip-book
           </_Badge>
           <_Counter>
-            frame <span>{String(frame.index + 1).padStart(3, '0')}</span> /{' '}
-            {total}
+            {t.flipbookDemo.frameLabel}{' '}
+            <span>{String(frame.index + 1).padStart(3, '0')}</span> / {total}
           </_Counter>
         </_TopRow>
         <_Bottom>
-          <_Caption>
-            Keep scrolling — every frame is drawn to a canvas in sync with the
-            scrollbar. No video, no timeline. Just images.
-          </_Caption>
+          <_Caption>{t.flipbookDemo.caption}</_Caption>
           <_Track>
             <_Fill style={{ width: `${frame.progress * 100}%` }} />
           </_Track>

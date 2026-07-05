@@ -5,6 +5,7 @@ import type { ScrollFlipBookProps } from 'react-scroll-flip-book';
 import styled, { keyframes } from 'styled-components';
 
 import { repoUrl, theme } from '../../../../constants/theme';
+import { useI18n } from '../../../../i18n';
 import { LinkButton } from './LinkButton';
 import { ScriptBox } from './ScriptBox';
 
@@ -147,6 +148,8 @@ type Props = {
 };
 
 export const FirsView = ({ framePaths }: Props) => {
+  const { t } = useI18n();
+
   return (
     <_Wrapper id="top">
       <_Background>
@@ -162,15 +165,12 @@ export const FirsView = ({ framePaths }: Props) => {
       <_ContentWrapper>
         <_Scrim />
         <_Content>
-          <_Tag>Scroll-linked React UI libraries</_Tag>
+          <_Tag>{t.firstView.tag}</_Tag>
           <_Title>react-scroll-pkgs</_Title>
-          <_Description>
-            Turn the scrollbar into an animation timeline. Two tiny, zero-config
-            packages for building Apple-style scroll experiences in React.
-          </_Description>
+          <_Description>{t.firstView.description}</_Description>
           <_Buttons>
             <LinkButton href="#react-scroll-flip-book">
-              See it in action
+              {t.firstView.seeItInAction}
             </LinkButton>
             <LinkButton href={repoUrl} variant="secondary">
               <IoLogoGithub size={19} />
@@ -189,7 +189,7 @@ export const FirsView = ({ framePaths }: Props) => {
             <ScriptBox script="npm i use-window-scroll-in-element" />
           </_ScriptWrapper>
         </_Content>
-        <_ScrollHint>Scroll</_ScrollHint>
+        <_ScrollHint>{t.firstView.scrollHint}</_ScrollHint>
       </_ContentWrapper>
     </_Wrapper>
   );
