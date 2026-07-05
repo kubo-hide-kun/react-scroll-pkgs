@@ -44,8 +44,22 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="ja">
-        <Head />
+      <Html lang="en">
+        <Head>
+          <meta name="theme-color" content="#05060a" />
+          <meta name="format-detection" content="telephone=no" />
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="manifest" href="/site.webmanifest" />
+          <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+          {/* AI / 回答エンジン向けのプロジェクト要約（llms.txt 標準） */}
+          <link
+            rel="alternate"
+            type="text/markdown"
+            href="/llms.txt"
+            title="llms.txt"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

@@ -17,6 +17,10 @@ export type Translation = {
     title: string;
     description: string;
   };
+  hookMeta: {
+    title: string;
+    description: string;
+  };
   nav: {
     hook: string;
     flipbook: string;
@@ -69,6 +73,11 @@ export const translations: Record<Locale, Translation> = {
       title: 'react-scroll-pkgs — Scroll-linked React UI libraries',
       description:
         'Turn the scrollbar into an animation timeline. Two tiny, zero-config React packages: use-window-scroll-in-element and react-scroll-flip-book.',
+    },
+    hookMeta: {
+      title: 'use-window-scroll-in-element — React scroll-progress hook',
+      description:
+        'A zero-dependency React hook that reports how far the window has scrolled through any element, as pixels and as a 0 → 1 fraction. Wire it to progress bars, fades, and parallax.',
     },
     nav: {
       hook: 'Hook',
@@ -154,6 +163,11 @@ export const translations: Record<Locale, Translation> = {
       title: 'react-scroll-pkgs — スクロール連動の React UI ライブラリ',
       description:
         'スクロールバーをアニメーションのタイムラインに変えましょう。設定不要の小さな 2 つの React パッケージ: use-window-scroll-in-element と react-scroll-flip-book。',
+    },
+    hookMeta: {
+      title: 'use-window-scroll-in-element — スクロール進捗 React フック',
+      description:
+        '任意の要素をウィンドウがどこまでスクロールしたかを、ピクセルと 0 → 1 の割合で返す依存関係ゼロの React フック。プログレスバー・フェード・パララックスに配線できます。',
     },
     nav: {
       hook: 'フック',

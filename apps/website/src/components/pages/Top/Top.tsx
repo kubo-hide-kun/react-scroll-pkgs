@@ -3,8 +3,10 @@ import React from 'react';
 import { ScrollFlipBookProps } from 'react-scroll-flip-book';
 import styled from 'styled-components';
 
+import { Seo } from '../../common/Seo';
 import { theme } from '../../../constants/theme';
 import { useI18n } from '../../../i18n';
+import { homeStructuredData } from '../../../utils/structuredData';
 import { CodeBlock } from './internal/CodeBlock';
 import { FeatureCards } from './internal/FeatureCards';
 import { FirsView } from './internal/FirstView';
@@ -59,9 +61,8 @@ export const Top = ({ framePaths }: Props) => {
 
   return (
     <>
+      <Seo path="/" structuredData={homeStructuredData()} />
       <NextHead>
-        <title>{t.meta.title}</title>
-        <meta name="description" content={t.meta.description} />
         {framePaths.slice(0, 20).map((framePath) => (
           <React.Fragment key={framePath.jpg}>
             <link
