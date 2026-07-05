@@ -6,6 +6,9 @@
     "packages/*",
     "apps/*"
   ],
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "website": "npm run dev -w website",
     "build": "turbo run build",

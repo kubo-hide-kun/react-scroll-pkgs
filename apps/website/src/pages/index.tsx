@@ -19,7 +19,6 @@ export const getStaticProps: GetStaticProps<TopProps> = () => {
       padLength: 3,
     }
   );
-  console.log(framePaths);
   return {
     props: {
       framePaths: framePaths,

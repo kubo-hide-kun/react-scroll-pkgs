@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**スクロール連動React UIライブラリ**
+**スクロール連動 React UI ライブラリ**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
@@ -12,7 +12,7 @@
 
 ## 概要
 
-`react-scroll-pkgs` は、スクロール連動UIアニメーションを構築するためのReactフックとコンポーネントを含む**Turborepoモノレポ**です。このプロジェクトは2つのnpmパッケージを提供します：
+`react-scroll-pkgs` は、スクロール連動 UI アニメーションを構築するための React フックとコンポーネントを含む**Turborepo モノレポ**です。このプロジェクトは 2 つの npm パッケージを提供します：
 
 1. **[use-window-scroll-in-element](./packages/use-window-scroll-in-element)** - 要素内でのウィンドウ位置を追跡する基本フック
 2. **[react-scroll-flip-book](./packages/react-scroll-flip-book)** - スクロール連動フリップブックアニメーションコンポーネント
@@ -23,9 +23,10 @@
 
 ### use-window-scroll-in-element
 
-ユーザーがスクロールする際に**ウィンドウの上辺/下辺が対象要素内でどの位置にあるか**を計算するReact Hook。ピクセル値とパーセンテージ値（0-100%）の両方を返します。
+ユーザーがスクロールする際に**ウィンドウの上辺/下辺が対象要素内でどの位置にあるか**を計算する React Hook。ピクセル値とパーセンテージ値（0-100%）の両方を返します。
 
 **インストール:**
+
 ```bash
 npm install use-window-scroll-in-element
 ```
@@ -36,9 +37,10 @@ npm install use-window-scroll-in-element
 
 ### react-scroll-flip-book
 
-ユーザーがスクロールする際に連番画像フレームをcanvasに描画することで、スクロール連動フリップブックアニメーションを作成するReactコンポーネント。`use-window-scroll-in-element` を基に構築されています。
+ユーザーがスクロールする際に連番画像フレームを canvas に描画することで、スクロール連動フリップブックアニメーションを作成する React コンポーネント。`use-window-scroll-in-element` を基に構築されています。
 
 **インストール:**
+
 ```bash
 npm install react-scroll-flip-book
 ```
@@ -58,7 +60,7 @@ import { useWindowScrollInElement } from 'use-window-scroll-in-element';
 function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
   const { position, fraction } = useWindowScrollInElement(ref);
-  
+
   return (
     <div ref={ref} style={{ height: '200vh' }}>
       <p>スクロール進捗: {(fraction.top * 100).toFixed(1)}%</p>
@@ -91,7 +93,7 @@ function App() {
 
 ## プロジェクト構造
 
-これは**Turborepoモノレポ**で、以下の構造を持ちます：
+これは**Turborepo モノレポ**で、以下の構造を持ちます：
 
 ```
 react-scroll-pkgs/
@@ -133,7 +135,7 @@ npm run typecheck
 npm run website
 ```
 
-### Turborepoコマンド
+### Turborepo コマンド
 
 - `turbo run build` - すべてのパッケージをビルド（依存関係を考慮）
 - `turbo run lint` - すべてのパッケージをリント
@@ -142,8 +144,8 @@ npm run website
 
 ## デモとドキュメント
 
-- **[ライブデモ](https://react-scroll-pkgs.vercel.app/)** - Vercelでホスティングされているインタラクティブな例とビジュアライゼーション
-- **[GitHubリポジトリ](https://github.com/kubo-hide-kun/react-scroll-pkgs)** - ソースコード、イシュー、プルリクエスト
+- **[ライブデモ](https://react-scroll-pkgs.vercel.app/)** - Vercel でホスティングされているインタラクティブな例とビジュアライゼーション
+- **[GitHub リポジトリ](https://github.com/kubo-hide-kun/react-scroll-pkgs)** - ソースコード、イシュー、プルリクエスト
 - **[開発者向けドキュメント](./docs/README.md)** - 開発者・コントリビューター向けのドキュメントインデックス
 
 ## ライセンス
@@ -152,7 +154,7 @@ MIT © [kubo-hide-kun](https://github.com/kubo-hide-kun)
 
 ## コントリビューション
 
-コントリビューションを歓迎します！コントリビューションガイドラインについては[GitHubリポジトリ](https://github.com/kubo-hide-kun/react-scroll-pkgs)を参照してください。
+コントリビューションを歓迎します！コントリビューションガイドラインについては[GitHub リポジトリ](https://github.com/kubo-hide-kun/react-scroll-pkgs)を参照してください。
 
 ## 関連リンク
 

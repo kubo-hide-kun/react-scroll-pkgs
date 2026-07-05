@@ -36,6 +36,7 @@ yarn add react-scroll-flip-book
 ```
 
 **Peer Dependencies:**
+
 - React 16.8+ (requires Hooks)
 
 ## Quick Start
@@ -51,7 +52,9 @@ function App() {
   }));
 
   return (
-    <div style={{ height: '200vh' }}> {/* Scrollable container */}
+    <div style={{ height: '200vh' }}>
+      {' '}
+      {/* Scrollable container */}
       <ScrollFlipBook
         defaultSource={{ framePaths }}
         style={{ width: '100%', height: '100vh' }}
@@ -82,26 +85,26 @@ function App() {
 
 #### Optional Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `sources` | `Array<Source>` | `[]` | Responsive breakpoints for different frame sets. Each source applies when screen width >= `breakPoint` |
-| `pause` | `boolean` | `false` | Pause the animation (freezes on current frame) |
-| `preLoadingSize` | `number` | `undefined` | Number of frames to preload ahead. If not specified, all frames load at once |
-| `canvasSize` | `{ width: number; height: number }` | `{ width: 1920, height: 1920 }` | Canvas drawing buffer size (not CSS size). Higher = better quality but more memory |
-| `background` | `string` | `'transparent'` | Background color or image for the canvas |
-| `positionFixed` | `boolean` | `false` | Use `position: fixed` for the canvas (useful for hero sections) |
-| `animationStartPosition` | `'window-top' \| 'window-center' \| 'window-bottom'` | `'window-top'` | Window position where animation starts |
-| `animationEndPosition` | `'window-top' \| 'window-center' \| 'window-bottom'` | `'window-top'` | Window position where animation ends |
-| `shouldChangeSourceOnResize` | `boolean` | `undefined` | Change source based on screen size on resize (currently not implemented) |
-| `shouldBackGroundLoadingOnPause` | `boolean` | `undefined` | Load images in background while paused (currently not implemented) |
-| `onUpdateImage` | `(args: { index: number; progress: number }) => void` | `undefined` | Callback fired when frame changes |
-| `onPreloadImages` | `() => void` | `undefined` | Callback fired when preloading completes |
+| Prop                             | Type                                                  | Default                         | Description                                                                                            |
+| -------------------------------- | ----------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `sources`                        | `Array<Source>`                                       | `[]`                            | Responsive breakpoints for different frame sets. Each source applies when screen width >= `breakPoint` |
+| `pause`                          | `boolean`                                             | `false`                         | Pause the animation (freezes on current frame)                                                         |
+| `preLoadingSize`                 | `number`                                              | `undefined`                     | Number of frames to preload ahead. If not specified, all frames load at once                           |
+| `canvasSize`                     | `{ width: number; height: number }`                   | `{ width: 1920, height: 1920 }` | Canvas drawing buffer size (not CSS size). Higher = better quality but more memory                     |
+| `background`                     | `string`                                              | `'transparent'`                 | Background color or image for the canvas                                                               |
+| `positionFixed`                  | `boolean`                                             | `false`                         | Use `position: fixed` for the canvas (useful for hero sections)                                        |
+| `animationStartPosition`         | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | Window position where animation starts                                                                 |
+| `animationEndPosition`           | `'window-top' \| 'window-center' \| 'window-bottom'`  | `'window-top'`                  | Window position where animation ends                                                                   |
+| `shouldChangeSourceOnResize`     | `boolean`                                             | `undefined`                     | Change source based on screen size on resize (currently not implemented)                               |
+| `shouldBackGroundLoadingOnPause` | `boolean`                                             | `undefined`                     | Load images in background while paused (currently not implemented)                                     |
+| `onUpdateImage`                  | `(args: { index: number; progress: number }) => void` | `undefined`                     | Callback fired when frame changes                                                                      |
+| `onPreloadImages`                | `() => void`                                          | `undefined`                     | Callback fired when preloading completes                                                               |
 
 #### Source Type
 
 ```typescript
 type Source = {
-  breakPoint: number;  // Minimum screen width (px) to apply this source
+  breakPoint: number; // Minimum screen width (px) to apply this source
   framePaths: { [encodeType in Encode]?: string }[];
   shouldBackGroundLoading?: boolean;
 };
@@ -110,6 +113,7 @@ type Source = {
 #### Supported Image Formats
 
 The component supports these formats (in priority order):
+
 - `avif` - AVIF format (best compression, modern browsers)
 - `webp` - WebP format (good compression, widely supported)
 - `jpg` - JPEG format (universal fallback)
@@ -131,11 +135,13 @@ function BasicFlipbook() {
   }));
 
   return (
-    <div style={{ height: '300vh' }}> {/* Important: Provide scrollable height */}
+    <div style={{ height: '300vh' }}>
+      {' '}
+      {/* Important: Provide scrollable height */}
       <ScrollFlipBook
         defaultSource={{ framePaths: frames }}
-        style={{ 
-          width: '100%', 
+        style={{
+          width: '100%',
           height: '100vh',
           position: 'sticky',
           top: 0,
@@ -224,7 +230,7 @@ import { ScrollFlipBook } from 'react-scroll-flip-book';
 function FlipbookWithLoading() {
   const [loading, setLoading] = useState(true);
   const [currentFrame, setCurrentFrame] = useState(0);
-  
+
   const frames = Array.from({ length: 100 }, (_, i) => ({
     webp: `/frames/frame-${String(i).padStart(4, '0')}.webp`,
   }));
@@ -232,7 +238,7 @@ function FlipbookWithLoading() {
   return (
     <div style={{ height: '300vh' }}>
       {loading && <div>Loading animation...</div>}
-      
+
       <ScrollFlipBook
         defaultSource={{ framePaths: frames }}
         preLoadingSize={10} // Preload 10 frames ahead
@@ -243,7 +249,7 @@ function FlipbookWithLoading() {
         }}
         style={{ width: '100%', height: '100vh' }}
       />
-      
+
       <div style={{ position: 'fixed', bottom: 20, right: 20 }}>
         Frame: {currentFrame} / {frames.length - 1}
       </div>
@@ -279,20 +285,24 @@ function HighQualityFlipbook() {
 ### Internal Flow
 
 1. **Scroll Progress Detection**
+
    - Uses `useWindowScrollInElement` hook internally
    - Tracks scroll progress as a fraction (0.0 to 1.0)
    - Only updates when element is in viewport (`disableValueChangesOffscreen: true`)
 
 2. **Frame Index Calculation**
+
    - Converts scroll fraction to frame index: `Math.ceil(fraction.top * frameCount)`
    - Clamps to valid range: `0` to `frameCount - 1`
 
 3. **Image Format Selection**
+
    - Detects browser support for AVIF, WebP, JPG, PNG
    - Selects best supported format from available frame paths
    - Uses `supportsEncode` utility (tests via Image loading)
 
 4. **Image Loading & Caching**
+
    - `useImageLoader` hook manages image cache
    - Loads images on demand
    - Preloads ahead based on `preLoadingSize`
@@ -343,11 +353,11 @@ function HighQualityFlipbook() {
 This package includes TypeScript definitions and exports:
 
 ```typescript
-import { 
-  ScrollFlipBook, 
+import {
+  ScrollFlipBook,
   ScrollFlipBookProps,
   ENCODES,
-  Encode 
+  Encode
 } from 'react-scroll-flip-book';
 
 // Use exported types

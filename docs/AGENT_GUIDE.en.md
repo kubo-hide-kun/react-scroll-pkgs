@@ -7,11 +7,13 @@ This document is a guide for Cursor agents to understand this project and propos
 ## Project Structure
 
 ### Monorepo Structure
+
 - **`apps/website`**: Demo/documentation site (not published)
   - **Demo Site**: https://react-scroll-pkgs.vercel.app/ (hosted on Vercel)
 - **`packages/*`**: Libraries published to npm (published)
 
 ### Turborepo Workspace
+
 - `workspaces` defined in root `package.json`
 - Task pipeline defined in `turbo.json`
 
@@ -26,6 +28,7 @@ This document is a guide for Cursor agents to understand this project and propos
 ## Published Packages
 
 ### react-scroll-flip-book (v1.0.2)
+
 - **Purpose**: React Hook for scroll flip book functionality
 - **Entry Point**: `src/index.ts` → `lib/index.js`
 - **Type Definitions**: `lib/typescript/index.d.ts`
@@ -35,6 +38,7 @@ This document is a guide for Cursor agents to understand this project and propos
 - **Installation**: `npm install react-scroll-flip-book`
 
 ### use-window-scroll-in-element (v1.1.1)
+
 - **Purpose**: React Hook for getting window position of element
 - **Entry Point**: `src/index.ts` → `lib/index.js`
 - **Type Definitions**: `lib/typescript/index.d.ts`
@@ -46,11 +50,13 @@ This document is a guide for Cursor agents to understand this project and propos
 ## Build & Publish Process
 
 ### Build
+
 - Each package compiles TypeScript using `tsc --project tsconfig.build.json`
 - Output directory: `lib/`
 - Auto-builds via `prepublishOnly` script
 
 ### Publish Workflow (GitHub Actions)
+
 1. `npm ci` - Install dependencies
 2. `npm run build` - Build all packages (`turbo run build`)
 3. `npm publish -w <package-name>` - Publish specific package
@@ -60,16 +66,19 @@ This document is a guide for Cursor agents to understand this project and propos
 ## Breaking Change Criteria
 
 ### Major Version Bump Required
+
 - Public API removal
 - Function signature changes (parameter types, order, required/optional)
 - Default behavior changes
 - Major dependency version updates
 
 ### Minor Version Bump Required
+
 - New feature additions (backward compatible)
 - Existing API extensions (e.g., adding optional parameters)
 
 ### Patch Version Bump Required
+
 - Bug fixes
 - Documentation updates
 - Internal implementation improvements (no API changes)
@@ -87,6 +96,7 @@ This project **requires full utilization of MCP**. The following MCP Servers are
 ### Available MCP Servers
 
 #### playwright
+
 - **Purpose**: Browser automation and vision capabilities
 - **Use Cases**:
   - `apps/website` verification
@@ -95,6 +105,7 @@ This project **requires full utilization of MCP**. The following MCP Servers are
   - Screenshot capture
 
 #### chrome-devtools
+
 - **Purpose**: Browser debugging using Chrome DevTools Protocol
 - **Use Cases**:
   - Performance analysis
@@ -103,6 +114,7 @@ This project **requires full utilization of MCP**. The following MCP Servers are
   - Element investigation
 
 #### serena
+
 - **Purpose**: Project context-aware IDE assistant
 - **Use Cases**:
   - Code search (`find_symbol`, `search_for_pattern`)
@@ -111,6 +123,7 @@ This project **requires full utilization of MCP**. The following MCP Servers are
   - Symbol renaming (`rename_symbol`)
 
 #### cipher
+
 - **Purpose**: Local embedder
 - **Use Cases**:
   - Code meaning understanding
@@ -120,14 +133,17 @@ This project **requires full utilization of MCP**. The following MCP Servers are
 ### MCP Usage Priority
 
 1. **Code Search & Symbol Operations**: Prioritize `serena`
+
    - Use `serena`'s `find_symbol` or `search_for_pattern` instead of traditional `grep` or `codebase_search`
    - Use `find_referencing_symbols` to find symbol references
 
 2. **Web Application Verification**: Use `playwright` or `chrome-devtools`
+
    - Always verify `apps/website` in a browser
    - Capture screenshots or snapshots for visual verification
 
 3. **Code Understanding**: Utilize `cipher`
+
    - Use when semantic search is needed
 
 4. **Traditional Tools**: Use only as fallback when MCP cannot handle

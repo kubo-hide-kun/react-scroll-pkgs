@@ -26,6 +26,7 @@ Both packages are designed to work together but can be used independently.
 React Hook that calculates **where the window's top/bottom edge is positioned within a target element** as the user scrolls. Returns both pixel values and percentage values (0-100%).
 
 **Installation:**
+
 ```bash
 npm install use-window-scroll-in-element
 ```
@@ -39,6 +40,7 @@ npm install use-window-scroll-in-element
 React component that creates scroll-linked flipbook animations by rendering sequential image frames on a canvas as the user scrolls. Built on top of `use-window-scroll-in-element`.
 
 **Installation:**
+
 ```bash
 npm install react-scroll-flip-book
 ```
@@ -58,7 +60,7 @@ import { useWindowScrollInElement } from 'use-window-scroll-in-element';
 function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
   const { position, fraction } = useWindowScrollInElement(ref);
-  
+
   return (
     <div ref={ref} style={{ height: '200vh' }}>
       <p>Scroll progress: {(fraction.top * 100).toFixed(1)}%</p>
